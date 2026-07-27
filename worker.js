@@ -282,8 +282,24 @@ async function fetchWithRetry429(url) {
   return fetch(url, { headers });
 }
 
+// Decodifica las entidades HTML más comunes (numéricas, hex y con nombre).
+// Sin esto, un apóstrofe escrito como &#8217; o &rsquo; en el HTML de origen
+// queda mostrado tal cual (como texto roto) en vez del caracter real.
+function decodeEntities(str) {
+  return str
+    .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(parseInt(n, 10)))
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, n) => String.fromCodePoint(parseInt(n, 16)))
+    .replace(/&rsquo;|&lsquo;|&apos;/g, "'")
+    .replace(/&rdquo;|&ldquo;/g, '"')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"');
+}
+
 function stripTags(str) {
-  return str.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+  return decodeEntities(str.replace(/<[^>]*>/g, " ")).replace(/\s+/g, " ").trim();
 }
 
 // Promiedos suele repetir el nombre del equipo dos veces en la misma celda
