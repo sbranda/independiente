@@ -1,0 +1,20 @@
+{
+  "name": "Club Atlético Independiente",
+  "short_name": "Independiente",
+  "description": "Sitio informativo no oficial del Club Atlético Independiente: historia, estadio, plantel y resultados.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#1a0d0d",
+  "theme_color": "#1a0d0d",
+  "lang": "es-AR",
+  "icons": [
+    {
+      "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_del_Club_Atl%C3%A9tico_Independiente.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

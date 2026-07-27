@@ -1,0 +1,2195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Club Atlético Independiente</title>
+<meta name="description" content="Sitio informativo no oficial del Club Atlético Independiente: historia, estadio, plantel y resultados.">
+<meta name="theme-color" content="#1a0d0d">
+
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_del_Club_Atl%C3%A9tico_Independiente.svg">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="El Rojo">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;600;700;900&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#1a0d0d; --bg-alt:#2b1010; --paper:#f4ede4;
+    --verde-nilo:#a4123a; --verde-bright:#e8324f; --verde-deep:#3c0a14;
+    --rust:#2b2b2b; --brass:#e0e0e0; --line:rgba(var(--paper-rgb),0.16);
+    --bg-rgb:26,13,13; --paper-rgb:244,237,228; --verde-bright-rgb:232,50,79;
+    --brass-rgb:224,224,224; --rust-rgb:43,43,43; --rust-text:#cfcfcf;
+  }
+  [data-theme="light"]{
+    --bg:#f6efe6; --bg-alt:#eee0d6; --paper:#241010;
+    --verde-nilo:#9c1030; --verde-bright:#c2103a; --verde-deep:#f6dfe3;
+    --rust:#3a3a3a; --brass:#6b5a1a; --line:rgba(36,16,16,0.14);
+    --bg-rgb:246,239,230; --paper-rgb:36,16,16; --verde-bright-rgb:194,16,58;
+    --brass-rgb:107,90,26; --rust-rgb:58,58,58; --rust-text:#2a2a2a;
+  }
+  [data-theme="light"] img.photo{filter:none;}
+  [data-theme="light"] .station-sign{box-shadow:0 0 0 6px var(--verde-nilo), 0 20px 50px rgba(0,0,0,0.15);}
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--bg); color:var(--paper); font-family:'Source Serif 4', Georgia, serif; line-height:1.6; -webkit-font-smoothing:antialiased;}
+  h1,h2,h3,.disp{font-family:'Big Shoulders Display', sans-serif; text-transform:uppercase; letter-spacing:0.02em;}
+  .mono{font-family:'IBM Plex Mono', monospace; letter-spacing:0.02em;}
+  button{cursor:pointer; border:none; font-family:'IBM Plex Mono', monospace; background:transparent; color:inherit;}
+  :focus-visible{outline:3px solid var(--brass); outline-offset:2px;}
+  p{opacity:0.92;}
+
+  header.hero{
+    min-height:78vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:3rem 1.25rem; position:relative;
+    background-image:linear-gradient(rgba(var(--bg-rgb),0.72), rgba(var(--bg-rgb),0.92)),
+      url('https://commons.wikimedia.org/wiki/Special:FilePath/Estadio_Libertadores_de_America_2014.JPG');
+    background-size:cover; background-position:center;
+  }
+  header.hero img.crest{width:120px; height:120px; margin-bottom:1.4rem; filter:drop-shadow(0 6px 18px rgba(0,0,0,0.5));}
+  .station-sign{
+    background:var(--verde-nilo); border:3px solid var(--paper);
+    box-shadow:0 0 0 6px var(--verde-deep), 0 20px 50px rgba(0,0,0,0.4);
+    padding:0.8rem 2rem; display:inline-block;
+  }
+  .station-sign span{font-size:clamp(2rem,6vw,4rem); font-weight:900; color:var(--paper); display:block; line-height:0.95;}
+  .hero-sub{margin-top:1.5rem; max-width:36ch; font-size:clamp(1rem,2vw,1.2rem);}
+  .hero-meta{margin-top:0.5rem; color:var(--verde-bright); font-size:0.9rem;}
+
+  nav.tabs{
+    display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:0.3rem;
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    padding:0.6rem 1rem; position:sticky; top:0; background:var(--bg); z-index:10;
+  }
+  nav.tabs img{width:34px; height:34px; margin-right:0.6rem;}
+  .tabbtn{padding:0.5rem 0.9rem; font-size:0.85rem; text-transform:uppercase; border-bottom:2px solid transparent; transition:color 0.2s, border-color 0.2s;}
+  .tabbtn:hover{color:var(--verde-bright);}
+  .tabbtn.active{color:var(--verde-bright); border-bottom-color:var(--verde-bright);}
+
+  main{max-width:900px; margin:0 auto; padding:3.5rem 1.5rem;}
+  section{display:none;}
+  section.active{display:block;}
+  .eyebrow{color:var(--verde-bright); font-size:0.8rem; text-transform:uppercase; margin-bottom:0.6rem;}
+  h2{font-size:clamp(1.7rem,4vw,2.4rem); margin:0 0 1.2rem;}
+
+  /* timeline */
+  .efemeride{
+    border:1px solid var(--brass); background:rgba(var(--brass-rgb),0.08);
+    padding:1.1rem 1.3rem; margin-bottom:1.8rem;
+  }
+  .efemeride .tag{font-size:0.7rem; color:var(--brass); text-transform:uppercase; letter-spacing:0.08em;}
+  .efemeride .titulo{font-family:'Big Shoulders Display', sans-serif; font-size:1.2rem; margin-top:0.3rem;}
+  .efemeride .texto{font-size:0.9rem; opacity:0.9; margin-top:0.3rem;}
+  .efemeride.proxima{border-color:rgba(var(--paper-rgb),0.25); background:transparent;}
+  .efemeride.proxima .tag{color:var(--verde-bright);}
+  .timeline{position:relative; padding-left:2.2rem; margin-top:2rem;}
+  .timeline::before{content:""; position:absolute; left:0.5rem; top:0.3rem; bottom:0.3rem; width:6px;
+    background:repeating-linear-gradient(180deg, var(--brass) 0 4px, transparent 4px 16px);}
+  .stop{position:relative; padding-bottom:1.4rem;}
+  .dot{position:absolute; left:-2.2rem; top:0.35rem; width:1.2rem; height:1.2rem; border-radius:50%; background:var(--verde-nilo); border:3px solid var(--paper);}
+  .stop.open .dot{background:var(--verde-bright);}
+  .stopbtn{width:100%; text-align:left; padding:0.5rem 0.7rem;}
+  .stopbtn:hover{background:rgba(var(--verde-bright-rgb),0.08);}
+  .stopbtn .yr{color:var(--brass); font-size:0.95rem; display:block;}
+  .stopbtn .ti{font-family:'Big Shoulders Display', sans-serif; text-transform:uppercase; font-size:1.25rem;}
+  .stop .body{display:none; padding:0 0.7rem; margin:0.4rem 0 0;}
+  .stop.open .body{display:block;}
+
+  /* colors */
+  .colors{display:flex; gap:1rem; flex-wrap:wrap; margin:1.8rem 0;}
+  .swatch{flex:1 1 150px; border:1px solid var(--line); padding:1rem; text-align:center;}
+  .swatch .chip{height:50px; margin-bottom:0.6rem;}
+  .swatch .yr{font-size:0.78rem; color:var(--verde-bright);}
+  .swatch p{font-size:0.85rem; margin:0.3rem 0 0; opacity:0.75;}
+  .nicknames{display:flex; flex-wrap:wrap; gap:0.6rem; margin-top:1rem;}
+  .nickname{font-size:0.85rem; border:1px solid var(--verde-nilo); color:var(--verde-bright); padding:0.35rem 0.8rem;}
+
+  /* stadium */
+  .gallery{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:0.8rem; margin:1.6rem 0;}
+  .gallery img{width:100%; height:170px; object-fit:cover; border:1px solid var(--line); filter:saturate(0.9);}
+  .stat-row{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:1rem;
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:1.4rem 0; margin:1.6rem 0;}
+  .stat-num{font-family:'Big Shoulders Display', sans-serif; font-size:2.1rem; font-weight:700;}
+  .stat-label{font-size:0.72rem; color:var(--verde-bright);}
+
+  /* historic squads */
+  .squadcard{border:1px solid var(--line); margin-bottom:0.6rem;}
+  .squadbtn{width:100%; padding:1rem 1.2rem; display:flex; justify-content:space-between; align-items:center; gap:1rem;}
+  .squadbtn:hover{background:rgba(var(--verde-bright-rgb),0.08);}
+  .squadbtn .yr{color:var(--brass); font-size:0.9rem; display:block;}
+  .squadbtn .ti{font-family:'Big Shoulders Display', sans-serif; text-transform:uppercase; font-size:1.25rem;}
+  .squadbtn .plus{color:var(--verde-bright); font-size:1.2rem;}
+  .squadbody{display:none; padding:0 1.2rem 1.2rem;}
+  .squadcard.open .squadbody{display:block;}
+  .line-label{font-size:0.72rem; color:var(--verde-bright); text-transform:uppercase;}
+
+  /* squad grid */
+  .filters{display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:1.6rem;}
+  #jugador-search{
+    width:100%; box-sizing:border-box; margin:1.4rem 0 0.6rem;
+    background:transparent; border:1px solid var(--verde-nilo); color:var(--paper);
+    padding:0.7rem 0.9rem; font-size:0.9rem;
+  }
+  #jugador-search::placeholder{color:rgba(var(--paper-rgb),0.45);}
+  #jugador-search:focus{outline:none; border-color:var(--verde-bright);}
+  .jugador-hit{
+    border:1px solid var(--line); padding:0.7rem 0.9rem; margin-bottom:0.5rem;
+    display:flex; justify-content:space-between; align-items:center; gap:0.8rem; flex-wrap:wrap;
+  }
+  .bg-categoria{font-size:0.7rem; color:var(--brass); text-transform:uppercase; margin:1.2rem 0 0.5rem; font-family:'IBM Plex Mono', monospace;}
+  .bg-categoria:first-child{margin-top:0;}
+  .bg-hit{
+    border:1px solid var(--line); padding:0.8rem 1rem; margin-bottom:0.5rem; cursor:pointer;
+  }
+  .bg-hit:hover{border-color:var(--verde-bright); background:rgba(var(--verde-bright-rgb),0.06);}
+  .bg-hit .titulo{font-weight:600;}
+  .bg-hit .snippet{font-size:0.82rem; opacity:0.75; margin-top:0.25rem;}
+  .jugador-hit .nombre{font-weight:600;}
+  .jugador-hit .contexto{font-size:0.78rem; color:var(--verde-bright); font-family:'IBM Plex Mono', monospace;}
+  .jugador-sin{font-size:0.85rem; opacity:0.6; margin-bottom:1rem;}
+  .destacado-card{border:1px solid var(--line); padding:0.9rem 1.1rem; margin-bottom:0.6rem;}
+  .destacado-card .nombre{font-weight:600; font-size:1rem;}
+  .destacado-card .periodo{font-size:0.72rem; color:var(--brass); font-family:'IBM Plex Mono', monospace; text-transform:uppercase; margin-top:0.15rem;}
+  .destacado-card .dato{font-size:0.88rem; opacity:0.85; margin-top:0.4rem;}
+  .trivia-card{border:1px solid var(--verde-nilo); padding:1.2rem; margin-top:1rem;}
+  .trivia-score{font-size:0.75rem; color:var(--brass); margin-bottom:0.8rem;}
+  .trivia-pregunta{font-size:1.05rem; margin-bottom:1rem;}
+  .trivia-opciones{display:flex; flex-direction:column; gap:0.5rem;}
+  .trivia-opcion{
+    background:transparent; border:1px solid rgba(var(--paper-rgb),0.25); color:var(--paper);
+    padding:0.7rem 0.9rem; text-align:left; font-size:0.9rem; cursor:pointer; border-radius:2px;
+  }
+  .trivia-opcion:hover:not(:disabled){border-color:var(--verde-bright);}
+  .trivia-opcion.correcta{background:rgba(var(--verde-bright-rgb),0.2); border-color:var(--verde-bright); color:var(--verde-bright);}
+  .trivia-opcion.incorrecta{background:rgba(var(--rust-rgb),0.2); border-color:var(--rust); color:var(--rust-text);}
+  .trivia-opcion:disabled{cursor:default;}
+  .trivia-siguiente{margin-top:1rem; background:var(--verde-nilo); color:var(--paper); border:none; padding:0.6rem 1rem; font-family:'IBM Plex Mono', monospace; font-size:0.82rem; cursor:pointer;}
+  .filterbtn{padding:0.5rem 1rem; font-size:0.8rem; border:1px solid var(--verde-nilo); color:var(--verde-bright);}
+  .filterbtn.active{background:var(--verde-nilo); color:var(--paper);}
+  .squadgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:0.7rem;}
+  .player{border:1px solid var(--line); padding:0.9rem;}
+  .player .name{font-weight:600;}
+  .player .detail{font-size:0.78rem; color:var(--verde-bright); margin-top:0.2rem;}
+
+  /* results */
+  .standing{background:var(--verde-deep); border:1px solid var(--verde-nilo); padding:1rem 1.4rem; margin-bottom:1.6rem;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.6rem;}
+  .standing .pos{color:var(--brass);}
+  .proximo{border:1px solid var(--brass); background:rgba(var(--brass-rgb),0.08); padding:1rem 1.2rem; margin-bottom:1.2rem;}
+  .racha{margin-bottom:1.4rem;}
+  .compartir-btn{
+    display:inline-flex; align-items:center; gap:0.5rem; margin-bottom:0.6rem;
+    background:var(--verde-nilo); color:var(--paper); border:none;
+    padding:0.6rem 1rem; font-family:'IBM Plex Mono', monospace; font-size:0.82rem; cursor:pointer;
+  }
+  .compartir-btn:hover{background:var(--verde-bright); color:var(--bg);}
+  #compartir-wrap{display:flex; gap:0.6rem; flex-wrap:wrap; margin-bottom:0.8rem;}
+  .rivales{margin-top:1.8rem;}
+  .rivales .label{font-size:0.72rem; color:var(--verde-bright); text-transform:uppercase; margin-bottom:0.6rem;}
+  .rival-card{
+    display:flex; align-items:center; justify-content:space-between; gap:0.8rem; flex-wrap:wrap;
+    border:1px solid var(--line); padding:0.8rem 1rem; margin-bottom:0.5rem;
+  }
+  .rival-card .info .name{font-weight:600;}
+  .rival-card .info .apodo{font-size:0.75rem; color:var(--brass); cursor:help; margin-top:0.1rem;}
+  .rival-card .info .when{font-size:0.78rem; color:rgba(var(--paper-rgb),0.65); margin-top:0.15rem;}
+  .rival-btn{
+    font-size:0.75rem; text-decoration:none; color:var(--verde-bright);
+    border:1px solid var(--verde-nilo); padding:0.4rem 0.8rem; white-space:nowrap;
+    font-family:'IBM Plex Mono', monospace;
+  }
+  .rival-btn:hover{background:rgba(var(--verde-bright-rgb),0.12);}
+  .racha .label{font-size:0.72rem; color:var(--verde-bright); text-transform:uppercase; margin-bottom:0.5rem;}
+  .racha-icons{display:flex; gap:0.5rem;}
+  .racha-icon{
+    width:2.1rem; height:2.1rem; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Big Shoulders Display', sans-serif; font-weight:700; font-size:1rem;
+    color:var(--bg); cursor:default;
+  }
+  .racha-icon.g{background:var(--verde-bright);}
+  .racha-icon.e{background:var(--brass);}
+  .racha-icon.p{background:var(--rust); color:var(--paper);}
+  .proximo .tag{font-size:0.72rem; color:var(--brass); text-transform:uppercase;}
+  .proximo .match{font-family:'Big Shoulders Display', sans-serif; font-size:1.3rem; margin-top:0.3rem;}
+  .countdown-hero{margin-top:1rem; font-size:0.85rem; color:var(--paper); opacity:0.9; min-height:1.2em;}
+  .hero-proximo{
+    margin-top:1.6rem;
+    border:1px solid rgba(var(--paper-rgb),0.3);
+    background:rgba(var(--bg-rgb),0.55);
+    padding:1rem 1.6rem;
+    display:inline-flex;
+    flex-direction:column;
+    align-items:center;
+    gap:0.3rem;
+  }
+  .hero-proximo .tag{font-size:0.68rem; color:var(--verde-bright); text-transform:uppercase; letter-spacing:0.1em;}
+  .hero-proximo .match{font-family:'Big Shoulders Display', sans-serif; font-size:1.5rem; text-transform:uppercase;}
+  .hero-proximo .match-row{display:flex; align-items:center; gap:0.7rem;}
+  .hero-proximo .cond{color:var(--brass); font-size:0.78rem;}
+  .hero-proximo .when{font-size:0.85rem; opacity:0.85;}
+  .countdown-box{display:flex; gap:0.6rem; margin-top:0.8rem; flex-wrap:wrap;}
+  .clima-box{
+    margin-top:0.8rem; display:flex; align-items:center; gap:0.5rem;
+    font-size:0.85rem; opacity:0.9;
+  }
+  .clima-icon{font-size:1.3rem;}
+  .prediccion{margin-top:1rem; padding-top:0.9rem; border-top:1px dashed rgba(var(--paper-rgb),0.2);}
+  .prediccion .label{font-size:0.72rem; color:var(--verde-bright); text-transform:uppercase; margin-bottom:0.5rem;}
+  .prediccion-form{display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;}
+  .prediccion-form input{
+    width:3rem; text-align:center; background:var(--bg); color:var(--paper);
+    border:1px solid var(--verde-nilo); padding:0.4rem; font-family:'IBM Plex Mono', monospace; font-size:1rem;
+  }
+  .prediccion-form span{color:var(--brass); font-weight:700;}
+  .prediccion-form button{
+    background:var(--verde-nilo); color:var(--paper); border:none; padding:0.5rem 0.9rem;
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem; cursor:pointer;
+  }
+  .prediccion-guardada{font-size:0.85rem;}
+  .prediccion-resultado{margin-top:0.5rem; font-size:0.85rem; padding:0.6rem 0.8rem;}
+  .prediccion-resultado.exacto{background:rgba(var(--verde-bright-rgb),0.15); color:var(--verde-bright);}
+  .prediccion-resultado.parcial{background:rgba(var(--brass-rgb),0.15); color:var(--brass);}
+  .prediccion-resultado.fallo{background:rgba(var(--rust-rgb),0.15); color:var(--rust-text);}
+  .countdown-box .unit{border:1px solid rgba(var(--paper-rgb),0.25); padding:0.5rem 0.7rem; text-align:center; min-width:58px;}
+  .countdown-box .unit .num{font-family:'Big Shoulders Display', sans-serif; font-size:1.5rem; font-weight:700; line-height:1;}
+  .countdown-box .unit .lbl{font-size:0.65rem; color:var(--verde-bright); text-transform:uppercase; margin-top:0.2rem;}
+  .rrow{display:flex; align-items:center; gap:1rem; padding:0.7rem 0.5rem; border-bottom:1px solid rgba(var(--paper-rgb),0.1);}
+  .rrow:hover{background:rgba(var(--verde-bright-rgb),0.06);}
+  .rrow .date{font-size:0.75rem; color:rgba(var(--paper-rgb),0.5); width:48px;}
+  .rrow .cond{font-size:0.7rem; color:var(--brass); width:18px;}
+  .rrow .rival{flex:1;}
+  .rrow .score{background:var(--verde-bright); color:var(--bg); padding:0.2rem 0.6rem; font-weight:600; min-width:44px; text-align:center;}
+  .rrow .scorers{font-size:0.8rem; opacity:0.65; flex:1 1 160px;}
+
+  .visit-card{background:var(--verde-deep); border:1px solid var(--verde-nilo); padding:1.8rem;}
+  .mapa-wrap{margin-top:1.2rem; border:1px solid var(--verde-nilo); overflow:hidden;}
+  .mapa-wrap iframe{width:100%; height:260px; border:0; display:block; filter:grayscale(0.15) contrast(1.05);}
+  .mapa-link{display:inline-block; margin-top:0.7rem; font-size:0.8rem;}
+  .standings-table{width:100%; border-collapse:collapse; font-size:0.82rem;}
+  .standings-table th{font-family:'IBM Plex Mono', monospace; font-size:0.68rem; color:var(--verde-bright); text-transform:uppercase; text-align:center; padding:0.4rem 0.3rem; border-bottom:1px solid var(--line);}
+  .standings-table th:first-child, .standings-table td:first-child{text-align:left; padding-left:0;}
+  .standings-table td{text-align:center; padding:0.45rem 0.3rem; border-bottom:1px solid rgba(var(--paper-rgb),0.08);}
+  .standings-table tr.me{background:rgba(var(--verde-bright-rgb),0.15);}
+  .standings-table tr.me td{color:var(--paper); font-weight:600;}
+  .comparador{margin-top:2.4rem; border-top:1px solid var(--line); padding-top:1.6rem;}
+  .comparador-selects{display:flex; align-items:center; gap:0.8rem; margin-top:0.8rem; flex-wrap:wrap;}
+  .comparador-selects select{
+    flex:1 1 160px; background:var(--bg); color:var(--paper); border:1px solid var(--verde-nilo);
+    padding:0.6rem 0.7rem; font-size:0.85rem; font-family:'IBM Plex Mono', monospace;
+  }
+  .comparador-vs{color:var(--brass); font-size:0.8rem;}
+  .comp-table{width:100%; border-collapse:collapse; margin-top:1.2rem; font-size:0.85rem;}
+  .comp-table th{font-family:'IBM Plex Mono', monospace; font-size:0.68rem; color:var(--verde-bright); text-transform:uppercase; padding:0.4rem; border-bottom:1px solid var(--line); text-align:center;}
+  .comp-table td{padding:0.5rem 0.4rem; text-align:center; border-bottom:1px solid rgba(var(--paper-rgb),0.08);}
+  .comp-table td.stat-label{text-align:left; color:var(--verde-bright); font-family:'IBM Plex Mono', monospace; font-size:0.72rem; text-transform:uppercase;}
+  .comp-table .team-header{display:flex; flex-direction:column; align-items:center; gap:0.4rem;}
+  .comp-table .team-header .name{font-size:0.78rem; max-width:110px;}
+  .comp-table td.better{color:var(--verde-bright); font-weight:700;}
+  .standings-table .team-cell{display:flex; align-items:center; gap:0.4rem; text-align:left;}
+  .visit-card .label{color:var(--brass); font-size:0.78rem; text-transform:uppercase; margin-top:1rem;}
+
+  footer{text-align:center; padding:2.5rem 1.5rem 3.5rem; opacity:0.5; font-size:0.75rem;}
+
+  .install-toast{
+    position:fixed; bottom:1rem; left:50%; transform:translateX(-50%);
+    background:var(--verde-nilo); color:var(--paper); padding:0.8rem 1.2rem;
+    border:1px solid var(--paper); display:none; align-items:center; gap:0.8rem; z-index:50; font-size:0.85rem;
+  }
+  .install-toast.show{display:flex;}
+  .install-toast button{background:var(--paper); color:var(--verde-deep); padding:0.4rem 0.8rem; font-weight:600;}
+
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <img class="crest" src="https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_del_Club_Atl%C3%A9tico_Independiente.svg" alt="Escudo del Club Atlético Independiente">
+  <div class="station-sign"><span>Independiente</span></div>
+  <p class="hero-sub">El Rey de Copas. Siete Libertadores, ninguna otra bandera en el continente las iguala.</p>
+  <p class="hero-meta mono">FUNDADO 01 · 01 · 1905</p>
+  <div id="hero-proximo" class="hero-proximo"></div>
+  <div id="countdown-hero" class="countdown-hero"></div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_del_Club_Atl%C3%A9tico_Independiente.svg" alt="Escudo">
+  <button class="tabbtn mono active" data-tab="historia">Historia</button>
+  <button class="tabbtn mono" data-tab="identidad">Identidad</button>
+  <button class="tabbtn mono" data-tab="estadio">Estadio</button>
+  <button class="tabbtn mono" data-tab="planteles">Planteles históricos</button>
+  <button class="tabbtn mono" data-tab="plantel">Plantel actual</button>
+  <button class="tabbtn mono" data-tab="resultados">Resultados</button>
+  <button class="tabbtn mono" data-tab="visitanos">Visitanos</button>
+  <button class="mono" id="buscar-global-btn" title="Buscar en toda la app" style="background:transparent; border:1px solid var(--verde-nilo); color:var(--verde-bright); padding:0.5rem 0.8rem; font-size:0.9rem; cursor:pointer;">🔍</button>
+  <button class="mono" id="theme-toggle-btn" title="Cambiar tema claro/oscuro" style="background:transparent; border:1px solid var(--verde-nilo); color:var(--verde-bright); padding:0.5rem 0.8rem; font-size:0.9rem; cursor:pointer;">🌙</button>
+  <button class="mono" id="font-menos-btn" title="Achicar letra" style="background:transparent; border:1px solid var(--verde-nilo); color:var(--verde-bright); padding:0.5rem 0.7rem; font-size:0.8rem; cursor:pointer;">A-</button>
+  <button class="mono" id="font-mas-btn" title="Agrandar letra" style="background:transparent; border:1px solid var(--verde-nilo); color:var(--verde-bright); padding:0.5rem 0.7rem; font-size:1.05rem; cursor:pointer;">A+</button>
+</nav>
+
+<div id="buscar-global-overlay" style="display:none; position:fixed; inset:0; background:rgba(13,31,22,0.97); z-index:100; overflow-y:auto;">
+  <div style="max-width:700px; margin:0 auto; padding:1.5rem;">
+    <div style="display:flex; align-items:center; gap:0.6rem;">
+      <input type="text" id="buscar-global-input" class="mono" placeholder="Buscar jugadores, rivales, historia, efemérides…" autocomplete="off"
+        style="flex:1; background:transparent; border:1px solid var(--verde-nilo); color:var(--paper); padding:0.8rem 1rem; font-size:1rem;">
+      <button id="buscar-global-cerrar" class="mono" style="background:transparent; border:1px solid rgba(241,236,221,0.3); color:var(--paper); padding:0.8rem 1rem; cursor:pointer;">✕</button>
+    </div>
+    <div id="buscar-global-resultados" style="margin-top:1.5rem;"></div>
+  </div>
+</div>
+
+<main>
+
+  <section id="tab-historia" class="active">
+    <div id="efemeride-wrap"></div>
+    <div class="eyebrow mono">Línea de tiempo</div>
+    <h2 class="disp">Del comercio porteño al Rey de Copas</h2>
+    <p>Tocá cada estación para ver su historia.</p>
+    <div class="timeline" id="timeline"></div>
+
+    <div class="eyebrow mono" style="margin-top:2.2rem;">Fotos de archivo</div>
+    <div class="gallery">
+      <div>
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Estadio_Libertadores_de_Am%C3%A9rica_-_Ricardo_Enrique_Bochini.jpg" alt="Estadio Libertadores de América - Ricardo Enrique Bochini" loading="lazy">
+        <p class="mono" style="font-size:0.72rem; opacity:0.55; margin-top:0.4rem;">El Estadio Libertadores de América, reinaugurado en 2009</p>
+      </div>
+      <div>
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Independiente_vista_tribuna_1940.jpg" alt="Vista de una tribuna del estadio en 1940" loading="lazy">
+        <p class="mono" style="font-size:0.72rem; opacity:0.55; margin-top:0.4rem;">1940 — el viejo estadio, conocido como "La Doble Visera"</p>
+      </div>
+    </div>
+
+    <div class="eyebrow mono" style="margin-top:2.2rem;">El clásico</div>
+    <h2 class="disp" style="font-size:1.4rem;">Clásico de Avellaneda — vs. Racing Club</h2>
+    <p>Independiente y Racing, los dos grandes clubes de Avellaneda, disputan una de las rivalidades más antiguas e intensas del fútbol argentino: sus estadios están a apenas 200 metros de distancia, separados por el Riachuelo. Es considerado el segundo clásico más importante del país, después del Superclásico entre Boca y River.</p>
+
+    <div class="stat-row">
+      <div><div class="stat-num">237</div><div class="stat-label mono">Partidos oficiales jugados</div></div>
+      <div><div class="stat-num">89</div><div class="stat-label mono">Victorias de Independiente</div></div>
+      <div><div class="stat-num">19</div><div class="stat-label mono">Goles de Erico, su máximo goleador en el clásico</div></div>
+    </div>
+
+    <div class="destacado-card">
+      <div class="nombre">El primer antecedente</div>
+      <div class="periodo mono">9 de junio de 1907</div>
+      <div class="dato">Con ambos planteles de reserva, Independiente venció 3-2 a Racing en el primer duelo registrado entre los dos clubes.</div>
+    </div>
+    <div class="destacado-card">
+      <div class="nombre">La goleada histórica</div>
+      <div class="periodo mono">3 de noviembre de 1940</div>
+      <div class="dato">Independiente 7 - Racing 0: la mayor diferencia de goles en toda la historia del Clásico de Avellaneda.</div>
+    </div>
+    <div class="destacado-card">
+      <div class="nombre">El último Clásico</div>
+      <div class="periodo mono">4 de abril de 2026</div>
+      <div class="dato">Independiente venció 1-0 a Racing en el Estadio Libertadores de América, en el debut de Gustavo Quinteros como DT del Rojo.</div>
+    </div>
+    <p class="mono" style="font-size:0.72rem; opacity:0.5; margin-top:0.6rem;">Estadísticas históricas del clásico según registros públicos, sujetas a revisión con cada nuevo enfrentamiento.</p>
+
+    <div class="eyebrow mono" style="margin-top:2.2rem;">Trivia</div>
+    <h2 class="disp" style="font-size:1.4rem;">¿Cuánto sabés de Independiente?</h2>
+    <div id="trivia-wrap"></div>
+  </section>
+
+  <section id="tab-identidad">
+    <div class="eyebrow mono">Identidad</div>
+    <h2 class="disp">El Rojo, casi sin cambios en 120 años</h2>
+    <p>A diferencia de muchos clubes, Independiente adoptó el rojo casi desde su fundación y lo mantuvo con pocas variaciones hasta hoy.</p>
+    <div class="colors">
+      <div class="swatch">
+        <div class="chip" style="background:#e7e1d2; border:1px solid #333;"></div>
+        <span class="yr mono">1904</span>
+        <p>Camiseta blanca en los primeros partidos, como Independiente Foot-Ball Club.</p>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#a4123a;"></div>
+        <span class="yr mono">1905 →</span>
+        <p>Adopción de la camiseta roja lisa, con pantalón y medias negras. Nace "El Rojo".</p>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#a4123a;"></div>
+        <span class="yr mono">1972–1984</span>
+        <p>La prensa europea empieza a llamarlos "Diablos Rojos" durante la seguidilla de títulos internacionales.</p>
+      </div>
+    </div>
+    <p>Apodos del club, todos ligados al color rojo de su camiseta y a su historia de campeón continental:</p>
+    <div class="nicknames" id="nicknames"></div>
+
+    <div class="gallery" style="margin-top:2rem;">
+      <div>
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Independiente_vista_tribuna_1940.jpg" alt="Tribuna del estadio de Independiente en 1940" loading="lazy">
+        <p class="mono" style="font-size:0.72rem; opacity:0.55; margin-top:0.4rem;">1940 — una tribuna del viejo estadio, con la hinchada de rojo</p>
+      </div>
+      <div>
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Bandera_del_Club_Atl%C3%A9tico_Independiente.svg" alt="Bandera del Club Atlético Independiente" loading="lazy" style="object-fit:contain; background:var(--bg);">
+        <p class="mono" style="font-size:0.72rem; opacity:0.55; margin-top:0.4rem;">La bandera del club, con los colores del Rojo</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="tab-estadio">
+    <div class="eyebrow mono">La casa del Rey de Copas</div>
+    <h2 class="disp">Estadio Libertadores de América – Ricardo Enrique Bochini</h2>
+    <p>Ubicado en Avellaneda, en el mismo predio que ocupó el histórico estadio "La Doble Visera" desde 1928. El nombre actual honra las siete Copas Libertadores del club y, desde 2021, también a su ídolo máximo, Ricardo Bochini.</p>
+    <div class="gallery">
+      <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Estadio_Libertadores_de_America_2014.JPG" alt="Estadio Libertadores de América" loading="lazy">
+      <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Estadio_Libertadores_de_Am%C3%A9rica_-_Ricardo_Enrique_Bochini.jpg" alt="Estadio Libertadores de América - Ricardo Enrique Bochini" loading="lazy">
+      <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Panorama_Estadio_Libertadores_de_Am%C3%A9rica.jpg" alt="Panorama del estadio de Independiente" loading="lazy">
+    </div>
+    <div class="stat-row">
+      <div><div class="stat-num">2009</div><div class="stat-label mono">Reinauguración del estadio actual</div></div>
+      <div><div class="stat-num">~48.000</div><div class="stat-label mono">Capacidad aproximada</div></div>
+      <div><div class="stat-num">1928</div><div class="stat-label mono">Año en que el club se instaló en el predio</div></div>
+    </div>
+    <p>El estadio original, apodado "La Doble Visera" por sus dos aleros superpuestos, fue demolido en 2007 para construir el actual recinto de estilo europeo, ubicado a apenas 200 metros del estadio de Racing Club, su clásico rival.</p>
+  </section>
+
+  <section id="tab-planteles">
+    <div class="eyebrow mono">1905 — hoy</div>
+    <h2 class="disp">Planteles históricos</h2>
+    <p>No existen planillas completas de cada una de las más de 100 temporadas del club — sobre todo de la época amateur, mal documentada. Estos son los equipos mejor registrados de la historia de Independiente. Tocá cada uno para ver la formación.</p>
+
+    <input type="text" id="jugador-search" class="mono" placeholder="Buscar jugador por nombre…" autocomplete="off">
+    <div id="jugador-resultados"></div>
+
+    <div id="historic-squads"></div>
+    <p class="mono" style="font-size:0.78rem; opacity:0.55; margin-top:1.4rem;">Fuentes: Wikipedia, CIHF, El Gráfico, Infobae y el sitio oficial del club.</p>
+
+    <div class="eyebrow mono" style="margin-top:2.4rem;">A través de las épocas</div>
+    <h2 class="disp" style="font-size:1.4rem;">Jugadores destacados</h2>
+    <div id="destacados-wrap"></div>
+
+    <div class="eyebrow mono" style="margin-top:2.4rem;">Los que dirigieron al Rojo</div>
+    <h2 class="disp" style="font-size:1.4rem;">Directores técnicos</h2>
+    <div id="dts-wrap"></div>
+    <p class="mono" style="font-size:0.78rem; opacity:0.55; margin-top:1rem;">Independiente tuvo decenas de entrenadores a lo largo de su historia — estos son algunos de los mejor documentados. Fuente: Wikipedia.</p>
+  </section>
+
+  <section id="tab-plantel">
+    <div class="eyebrow mono">Primera División 2026</div>
+    <h2 class="disp">Plantel actual</h2>
+    <p>DT: <strong>Gustavo Quinteros</strong> (60 años)</p>
+    <div class="filters" id="filters"></div>
+    <div class="squadgrid" id="squadgrid"></div>
+  </section>
+
+  <section id="tab-resultados">
+    <div class="eyebrow mono">Últimas fechas</div>
+    <h2 class="disp">Resultados — Torneo Clausura 2026</h2>
+    <div class="standing">
+      <span>Posición actual en la Zona A</span>
+      <span class="pos mono">1° puesto · 3 pts (tras la fecha 1)</span>
+    </div>
+    <div id="fechas-restantes-wrap"></div>
+    <div id="racha-wrap"></div>
+    <div id="racha-lv-wrap"></div>
+    <div id="proximo-wrap"></div>
+    <div id="rivales-wrap"></div>
+    <div id="compartir-wrap"></div>
+    <div id="results"></div>
+    <p class="mono" id="fuente-datos" style="font-size:0.78rem; opacity:0.55; margin-top:1rem;">Fuente: LA NACION / Canchallena, fecha 1 del torneo (dato fijo, a la espera de datos en vivo del Worker).</p>
+
+    <button class="btn mono" id="toggle-standings" style="margin-top:1.6rem; border:1px solid var(--verde-nilo); color:var(--verde-bright); padding:0.6rem 1rem;">
+      Ver tabla completa de la zona ▾
+    </button>
+    <div id="standings-wrap" style="display:none; margin-top:1rem;">
+      <div id="standings-table-wrap-A"></div>
+      <div id="standings-table-wrap-B" style="margin-top:2rem;"></div>
+
+      <div class="comparador">
+        <div class="eyebrow mono">Comparador rápido</div>
+        <div class="comparador-selects">
+          <select id="comp-equipo-a" class="mono"><option value="">Elegí un equipo…</option></select>
+          <span class="mono comparador-vs">vs</span>
+          <select id="comp-equipo-b" class="mono"><option value="">Elegí un equipo…</option></select>
+        </div>
+        <div id="comparador-resultado"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tab-visitanos">
+    <div class="eyebrow mono">Cómo llegar</div>
+    <h2 class="disp">Visitanos en Avellaneda</h2>
+    <div class="visit-card">
+      <h3 class="disp" style="font-size:1.2rem; margin:0 0 0.8rem;">Sede y estadio</h3>
+      <p>Sede social: Av. Mitre 470 — Estadio: Ricardo Bochini 751</p>
+      <p>Avellaneda, Provincia de Buenos Aires</p>
+      <p class="label mono">Cómo llegar</p>
+      <p>Tren: Línea Roca, estación Avellaneda</p>
+      <p>Colectivo: numerosas líneas conectan con Av. Mitre y el bajo Avellaneda</p>
+
+      <div class="mapa-wrap">
+        <iframe
+          title="Mapa del estadio de Independiente"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=-58.3770%2C-34.6743%2C-58.3650%2C-34.6663&layer=mapnik&marker=-34.6703%2C-58.3710"
+          loading="lazy">
+        </iframe>
+      </div>
+      <a class="mono mapa-link" href="https://www.google.com/maps/search/?api=1&query=Estadio+Libertadores+de+America+Avellaneda" target="_blank" rel="noopener noreferrer">Abrir en Google Maps ↗</a>
+    </div>
+
+    <div class="eyebrow mono" style="margin-top:2.4rem;">Sumate</div>
+    <h2 class="disp">Hacerse socio</h2>
+    <div class="visit-card">
+      <h3 class="disp" style="font-size:1.2rem; margin:0 0 0.8rem;">Cómo asociarte</h3>
+      <p>El club ofrece distintas categorías de socio, con acceso a la cancha y a las instalaciones deportivas de Villa Domínico y otras sedes, según el plan elegido.</p>
+      <p class="label mono">Medios de pago</p>
+      <p>Débito automático, tarjetas y transferencia, según lo que informe la Oficina de Socios en cada momento.</p>
+    </div>
+
+    <div class="visit-card" style="margin-top:1rem;">
+      <h3 class="disp" style="font-size:1.2rem; margin:0 0 0.8rem;">Oficina de Socios</h3>
+      <p>Av. Mitre 470, Avellaneda</p>
+      <p class="label mono">Contacto</p>
+      <p>Consultá los canales oficiales de atención en la web del club.</p>
+    </div>
+    <p class="mono" style="font-size:0.72rem; opacity:0.5; margin-top:0.8rem;">Las categorías y valores de cuota cambian con frecuencia — consultá siempre <a href="https://clubaindependiente.com.ar" target="_blank" rel="noopener noreferrer">la página oficial</a> para la información actualizada.</p>
+
+    <div class="eyebrow mono" style="margin-top:2.4rem;">Mantenete al día</div>
+    <a href="https://clubaindependiente.com.ar" target="_blank" rel="noopener noreferrer" class="rival-btn" style="display:inline-block; margin-top:0.6rem;">📰 Sitio oficial del club ↗</a>
+  </section>
+
+</main>
+
+<footer class="mono">
+  Sitio informativo no oficial sobre Club Atlético Independiente · Avellaneda, Buenos Aires<br>
+  Fotos e imágenes: Wikimedia Commons (CC BY-SA)
+</footer>
+
+<div class="install-toast mono" id="installToast">
+  <span>Instalá Independiente en tu pantalla de inicio</span>
+  <button id="installBtn">Instalar</button>
+</div>
+
+<script>
+// ---------- DATA ----------
+// Hitos con fecha exacta (día/mes) documentada, para el widget "Un día como hoy".
+// Ojo: son pocos porque la mayoría de la historia del club no tiene fecha
+// exacta registrada (sobre todo la época amateur) — no es una lista completa,
+// son los que sí están bien documentados.
+const EFEMERIDES = [
+  { dia: 1, mes: 1, anio: 1905, texto: "Fecha de fundación oficial del club, aunque el equipo de fútbol ya jugaba desde agosto de 1904 como Independiente Foot-Ball Club." },
+  { dia: 4, mes: 8, anio: 1904, texto: "Un grupo de empleados de la tienda \"A la Ciudad de Londres\" forma el club, en la zona de la actual Plaza de Mayo." },
+  { dia: 4, mes: 3, anio: 1928, texto: "Se inaugura el primer estadio propio en Avellaneda, con un amistoso ante Peñarol de Uruguay que terminó 2-2." },
+  { dia: 9, mes: 6, anio: 1907, texto: "Primer antecedente del Clásico de Avellaneda: Independiente vence 3-2 a Racing, con ambos planteles de reserva." },
+  { dia: 3, mes: 11, anio: 1940, texto: "Independiente golea 7-0 a Racing: la mayor diferencia de goles en la historia del Clásico de Avellaneda." },
+  { dia: 12, mes: 8, anio: 1964, texto: "Independiente le gana la vuelta a Nacional de Uruguay y se consagra campeón de su primera Copa Libertadores." },
+  { dia: 28, mes: 10, anio: 2009, texto: "Reinauguración del Estadio Libertadores de América, construido en el mismo predio que el histórico estadio \"La Doble Visera\"." },
+  { dia: 13, mes: 12, anio: 2017, texto: "Independiente empata 1-1 con Flamengo en el Maracaná y se consagra campeón de la Copa Sudamericana 2017." },
+];
+
+const TIMELINE = [
+  { year: "1904–05", title: "Fundación", text: "Un grupo de empleados de un comercio porteño funda el club el 4 de agosto de 1904; su fecha de fundación oficial pasó a ser el 1 de enero de 1905." },
+  { year: "1907–28", title: "De Monserrat a Avellaneda", text: "El club, originario del barrio porteño de Monserrat, se mudó a Crucecita en 1907 y finalmente a Avellaneda en 1928, donde construyó su propio estadio." },
+  { year: "1911", title: "Ascenso a Primera", text: "Independiente asciende a la Primera División del fútbol argentino y no volvió a descender hasta 2013, con la única excepción de esa temporada." },
+  { year: "1964–65", title: "Primeras Libertadores", text: "Independiente se convierte en el primer club argentino en ganar la Copa Libertadores, y revalida el título al año siguiente ante Peñarol." },
+  { year: "1972–75", title: "El Tetracampeón", text: "Consigue cuatro Copas Libertadores consecutivas, un récord histórico de la competencia que ningún otro club logró igualar." },
+  { year: "1984", title: "Séptima Libertadores", text: "Bajo la dirección de José Omar Pastoriza, y con Ricardo Bochini como figura, gana su séptima y última Copa Libertadores, además de la Copa Intercontinental." },
+  { year: "2013–14", title: "Único descenso", text: "Independiente desciende por primera y única vez en su historia a la Primera Nacional, regresando a Primera al año siguiente." },
+  { year: "2017", title: "Copa Sudamericana", text: "Bajo la dirección de Ariel Holan y con Nicolás Tagliafico como capitán, gana su segunda Copa Sudamericana ante Flamengo, en el Maracaná." },
+  { year: "Hoy", title: "Primera División", text: "El equipo compite en la máxima categoría del fútbol argentino, bajo la dirección técnica de Gustavo Quinteros." },
+];
+
+// Apodos de los clubes más conocidos del fútbol argentino, con origen
+// verificado (no cubre los 30 equipos de Primera División — son los que
+// tienen un origen bien documentado). Por nombre normalizado.
+const APODOS_RIVALES = {
+  'racing': { apodo: 'La Academia', origen: 'Por el nivel futbolístico e institucional que mostraba el club en los años 20, cuando se convirtió en el primer gran campeón argentino.' },
+  'boca juniors': { apodo: 'Xeneizes', origen: 'Por los inmigrantes genoveses ("xeneise" en genovés) que fundaron el club en La Boca.' },
+  'river plate': { apodo: 'Millonarios', origen: 'Por los pases altísimos que pagó el club en los años 30, en plena crisis económica del país.' },
+  'san lorenzo': { apodo: 'El Ciclón', origen: 'Por un ciclón que pasó sobre Buenos Aires mientras el equipo jugaba un partido en 1924.' },
+  'huracan': { apodo: 'El Globo', origen: 'Por un globo aerostático que sobrevoló la cancha el día de la fundación del club, en 1908.' },
+  'velez sarsfield': { apodo: 'El Fortín', origen: 'Por el estilo cerrado y aguerrido con el que el club se plantó históricamente en Liniers.' },
+  'estudiantes': { apodo: 'El Pincha', origen: 'Apodo tradicional (Pincharrata) del club de La Plata, de origen incierto pero muy arraigado.' },
+  'gimnasia': { apodo: 'El Lobo', origen: 'Apodo tradicional del Gimnasia y Esgrima La Plata.' },
+  'newells old boys': { apodo: 'La Lepra', origen: 'Apodo surgido por la cercanía del club con un antiguo asilo de la ciudad de Rosario.' },
+  'rosario central': { apodo: 'El Canalla', origen: 'Apodo que sus propios hinchas adoptaron con orgullo desde principios del siglo XX.' },
+  'talleres': { apodo: 'La T', origen: 'Por la inicial del club, fundado por trabajadores ferroviarios de los talleres de Córdoba.' },
+  'belgrano': { apodo: 'El Pirata', origen: 'Por unas calaveras que los hinchas dibujaban en la popular en los años 40.' },
+  'independiente rivadavia': { apodo: 'La Lepra Mendocina', origen: 'Apodo tomado del club rosarino con el que comparte fundadores de origen similar.' },
+  'platense': { apodo: 'El Calamar', origen: 'Por el color negro y beige de su camiseta, asociado al color de la tinta del calamar.' },
+  'barracas central': { apodo: 'El Guapo', origen: 'Apodo tradicional del club del barrio porteño de Barracas.' },
+  'defensa y justicia': { apodo: 'El Halcón', origen: 'Apodo adoptado por el club de Florencio Varela en su identidad institucional.' },
+  'tigre': { apodo: 'El Matador', origen: 'Apodo tradicional del club de Victoria.' },
+  'banfield': { apodo: 'El Taladro', origen: 'Por la histórica relación de socios y dirigentes del club con la industria metalúrgica.' },
+  'lanus': { apodo: 'El Granate', origen: 'Por el color granate de su camiseta, adoptado a comienzos del siglo XX.' },
+  'atletico tucuman': { apodo: 'El Decano', origen: 'Por ser el club de fútbol más antiguo de la provincia de Tucumán.' },
+  'central cordoba': { apodo: 'El Ferroviario', origen: 'Por su origen ligado a los trabajadores del ferrocarril en Santiago del Estero.' },
+  'instituto': { apodo: 'La Gloria', origen: 'Apodo tradicional del club cordobés.' },
+  'gimnasia mendoza': { apodo: 'El Lobo Mendocino', origen: 'Por compartir apodo con Gimnasia La Plata, aunque con identidad propia en Mendoza.' },
+  'union': { apodo: 'El Tatengue', origen: 'Apodo de origen incierto, muy arraigado entre los hinchas santafesinos del club.' },
+  'sarmiento': { apodo: 'El Verde', origen: 'Por el color de su camiseta.' },
+  'deportivo riestra': { apodo: 'El Malevo', origen: 'Apodo adoptado por el club del barrio porteño de Villa Soldati.' },
+};
+
+// Escudos reales de los clubes de Primera División (Wikimedia Commons), por
+// nombre normalizado (sin acentos, minúscula). Para los que faltan, se
+// muestra un círculo con las iniciales en vez de romper la imagen.
+const CREST_MAP = {
+  'independiente': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_del_Club_Atl%C3%A9tico_Independiente.svg',
+  'racing': 'https://commons.wikimedia.org/wiki/Special:FilePath/Racing_Club_de_Avellaneda_1900.svg',
+  'racing club': 'https://commons.wikimedia.org/wiki/Special:FilePath/Racing_Club_de_Avellaneda_1900.svg',
+  'boca juniors': 'https://commons.wikimedia.org/wiki/Special:FilePath/Boca_Juniors_logo18.svg',
+  'boca': 'https://commons.wikimedia.org/wiki/Special:FilePath/Boca_Juniors_logo18.svg',
+  'river plate': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_del_C_A_River_Plate.svg',
+  'river': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_del_C_A_River_Plate.svg',
+  'san lorenzo': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_del_Club_Atl%C3%A9tico_San_Lorenzo_de_Almagro.svg',
+  'huracan': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_Huracan.svg',
+  'velez sarsfield': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_V%C3%A9lez_Sarsfield.svg',
+  'velez': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_V%C3%A9lez_Sarsfield.svg',
+  'estudiantes': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_Estudiantes_de_La_Plata.svg',
+  'gimnasia': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_del_Club_de_Gimnasia_y_Esgrima_La_Plata.svg',
+  'gimnasia la plata': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_del_Club_de_Gimnasia_y_Esgrima_La_Plata.svg',
+  'gimnasia mendoza': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_Gimnasia_y_Esgrima_de_Mendoza.png',
+  'newells old boys': 'https://commons.wikimedia.org/wiki/Special:FilePath/Newells_Old_Boys.svg',
+  "newell's": 'https://commons.wikimedia.org/wiki/Special:FilePath/Newells_Old_Boys.svg',
+  'rosario central': 'https://commons.wikimedia.org/wiki/Special:FilePath/Rosario_Central_Isologo.svg',
+  'talleres': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_Talleres_de_C%C3%B3rdoba.svg',
+  'belgrano': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_Belgrano.svg',
+  'independiente rivadavia': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_Independiente_Rivadavia.png',
+  'platense': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_Platense.svg',
+  'barracas central': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_Barracas_Central.svg',
+  'defensa y justicia': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_Defensa_y_Justicia.svg',
+  'tigre': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_del_Club_Atl%C3%A9tico_Tigre.svg',
+  'banfield': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_Banfield.svg',
+  'lanus': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_Lan%C3%BAs.svg',
+  'atletico tucuman': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_At._Tucum%C3%A1n.png',
+  'central cordoba': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_Central_C%C3%B3rdoba_(SdE).png',
+  'instituto': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_Instituto_Atl%C3%A9tico_Central_C%C3%B3rdoba.png',
+  'union': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_Uni%C3%B3n_de_Santa_Fe.svg',
+  'sarmiento': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_Sarmiento_de_Junin.png',
+  'deportivo riestra': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_Deportivo_Riestra.png',
+  'aldosivi': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_Aldosivi.png',
+  'argentinos juniors': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_Argentinos_Juniors.svg',
+};
+
+function iniciales(nombre){
+  return (nombre || '').split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase();
+}
+
+// Busca el escudo de un rival: primero por coincidencia exacta de nombre
+// normalizado, y si no, probando si alguna clave conocida está contenida en
+// el nombre (por si Promiedos lo escribe distinto, ej. "Racing Club" en vez
+// de "Racing").
+function buscarEscudo(nombre){
+  const n = normalizar(nombre);
+  if (CREST_MAP[n]) return CREST_MAP[n];
+  const key = Object.keys(CREST_MAP).find(k => n.includes(k) || k.includes(n));
+  return key ? CREST_MAP[key] : null;
+}
+
+// Devuelve el HTML de un escudo (imagen real si la tenemos, si no un círculo
+// con las iniciales del equipo) para mostrar junto al nombre de un rival.
+function escudoHtml(nombre, size){
+  const url = buscarEscudo(nombre);
+  if (url) {
+    return `<img src="${url}" alt="Escudo de ${nombre}" style="width:${size}px; height:${size}px; object-fit:contain;" loading="lazy">`;
+  }
+  return `<div style="width:${size}px; height:${size}px; border-radius:50%; background:var(--verde-deep); border:1px solid var(--verde-nilo); display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:${Math.round(size * 0.38)}px; color:var(--verde-bright); flex-shrink:0;">${iniciales(nombre)}</div>`;
+}
+
+
+const NICKNAMES = ["El Rojo", "Los Diablos Rojos", "El Rey de Copas", "Orgullo Nacional"];
+
+// Preguntas de trivia, armadas con datos verificados de TIMELINE/EFEMERIDES/
+// HISTORIC_SQUADS que ya usamos en el resto de la app.
+const TRIVIA = [
+  { pregunta: "¿En qué año se fundó oficialmente Independiente?", opciones: ["1898", "1905", "1912", "1921"], correcta: 1 },
+  { pregunta: "¿Cuántas Copas Libertadores ganó Independiente, un récord histórico?", opciones: ["5", "6", "7", "8"], correcta: 2 },
+  { pregunta: "¿Cómo se llama el estadio de Independiente?", opciones: ["El Cilindro", "La Bombonera", "Libertadores de América – Ricardo Bochini", "José Amalfitani"], correcta: 2 },
+  { pregunta: "¿Cuál es el apodo más conocido de Independiente?", opciones: ["El Millonario", "El Rojo", "El Ciclón", "El Fortín"], correcta: 1 },
+  { pregunta: "¿Quién es el máximo goleador histórico del club?", opciones: ["Ricardo Bochini", "Arsenio Erico", "Daniel Bertoni", "Jorge Burruchaga"], correcta: 1 },
+  { pregunta: "¿Qué jugador es ídolo absoluto por jugar toda su carrera (1972–1991) en el club?", opciones: ["Ricardo Bochini", "Nicolás Tagliafico", "Sergio Agüero", "Iván Marcone"], correcta: 0 },
+  { pregunta: "¿Contra qué equipo disputa Independiente el Clásico de Avellaneda?", opciones: ["Racing Club", "Boca Juniors", "River Plate", "San Lorenzo"], correcta: 0 },
+  { pregunta: "¿En qué año descendió Independiente por única vez en su historia?", opciones: ["2005", "2010", "2013", "2018"], correcta: 2 },
+  { pregunta: "¿Qué título internacional ganó Independiente en 2017?", opciones: ["Copa Libertadores", "Copa Sudamericana", "Recopa Sudamericana", "Supercopa"], correcta: 1 },
+  { pregunta: "¿Cuántas Copas Libertadores ganó de manera consecutiva entre 1972 y 1975?", opciones: ["2", "3", "4", "5"], correcta: 2 },
+  { pregunta: "¿En qué ciudad tiene su sede el club?", opciones: ["Avellaneda", "La Plata", "Quilmes", "San Isidro"], correcta: 0 },
+  { pregunta: "¿Cuál de estos NO es un apodo de Independiente?", opciones: ["El Rojo", "Diablos Rojos", "Orgullo Nacional", "El Millonario"], correcta: 3 },
+];
+
+// Directores técnicos con datos y contexto bien documentados. No es la lista
+// completa de la historia del club — son los que tienen fechas y logros
+// confirmados en fuentes confiables.
+const DTS_HISTORICOS = [
+  { nombre: "José Omar Pastoriza", periodo: "1983–1985", dato: "Condujo al equipo en la conquista de la Copa Libertadores y la Copa Intercontinental de 1984, la última consagración continental grande del club." },
+  { nombre: "Ariel Holan", periodo: "2016–2018", dato: "Reconstruyó al equipo tras años difíciles y lo llevó a ganar la Copa Sudamericana 2017 ante Flamengo, en el Maracaná." },
+  { nombre: "Gustavo Quinteros", periodo: "Septiembre de 2025 — actualidad", dato: "Llegó tras un paso exitoso por Vélez Sarsfield, con el objetivo de reconstruir un equipo competitivo para pelear arriba en la tabla." },
+];
+
+const JUGADORES_DESTACADOS = [
+  { nombre: "Arsenio Erico", periodo: "1934–1946", dato: "Delantero paraguayo, máximo goleador histórico del fútbol argentino (con 293 goles), casi todos convertidos con la camiseta de Independiente." },
+  { nombre: "Ricardo \"El Bocha\" Bochini", periodo: "1972–1991", dato: "Jugó toda su carrera en el club: ídolo absoluto, ganó cuatro Copas Libertadores y la Intercontinental de 1984. El estadio lleva hoy su nombre." },
+  { nombre: "Daniel Bertoni", periodo: "Años '70", dato: "Delantero campeón del mundo en 1978 con la Selección Argentina, figura del Independiente de esa década." },
+  { nombre: "Jorge Burruchaga", periodo: "1980s", dato: "Mediocampista ofensivo de la conquista de la Libertadores e Intercontinental de 1984; años después, campeón del mundo en 1986 con la Selección, donde marcó el gol decisivo de la final." },
+  { nombre: "Nicolás Tagliafico", periodo: "2015–2018", dato: "Lateral izquierdo y capitán del plantel campeón de la Copa Sudamericana 2017. Luego se consagró campeón del mundo en 2022 con la Selección Argentina." },
+];
+
+// Los siete títulos de Copa Libertadores, la marca que le da a Independiente
+// el apodo de "Rey de Copas". Se muestran como planteles/hitos históricos
+// porque no existe una planilla completa y verificada de cada uno de los
+// siete equipos campeones.
+const HISTORIC_SQUADS = [
+  { year:"1964", title:"Primera Copa Libertadores",
+    context:"Independiente se convierte en el primer equipo argentino en ganar la Copa Libertadores, venciendo 1-0 a Nacional de Uruguay en la final, con gol de Mario Rodríguez Varela.",
+    lines:[
+      {label:"Figuras de esa campaña", players:"Mario Rodríguez Varela, Raúl Savoy, Rolán, Suárez"},
+    ]},
+  { year:"1972–1975", title:"El Tetracampeón",
+    context:"Independiente gana cuatro Copas Libertadores consecutivas (1972, 1973, 1974 y 1975), un récord que ningún otro club de América logró igualar hasta hoy.",
+    lines:[
+      {label:"Contexto", players:"Además, el club sumó la Copa Intercontinental de 1973 ante la Juventus de Italia."},
+    ]},
+  { year:"1984", title:"Séptima Libertadores y Copa Intercontinental",
+    context:"Última gran consagración continental del club: campeón de la Copa Libertadores y luego de la Copa Intercontinental, venciendo al Liverpool de Inglaterra en Tokio. DT: José Omar Pastoriza.",
+    lines:[
+      {label:"Arqueros", players:"Carlos Goyén, Gustavo Moriconi"},
+      {label:"Defensores", players:"Rodolfo Zimmermann, Guillermo Ríos, Carlos Enrique, Pedro Monzón, Hugo Villaverde, Ariel Wiktor, Enzo Trossero, Néstor Clausen"},
+      {label:"Mediocampistas", players:"Ricardo Bochini, César Merlini, Carlos Carrizo, Gerardo Reinoso, Claudio Marangoni, Ricardo Giusti, Jorge Clara, René Houseman"},
+      {label:"Delanteros", players:"José Percudani, Sergio Bufarini, Alejandro Barberón, Gustavo Crnko, Jorge Burruchaga, Enrique Sánchez"},
+      {label:"DT", players:"José Omar Pastoriza"},
+    ]},
+  { year:"2017", title:"Campeón de la Copa Sudamericana",
+    context:"Tras siete años sin títulos internacionales, Independiente vence a Flamengo 3-2 en el global (2-1 de local, 1-1 en el Maracaná) y gana su segunda Copa Sudamericana. DT: Ariel Holan.",
+    lines:[
+      {label:"Figuras", players:"Nicolás Tagliafico (capitán), Ezequiel Barco, Maximiliano Meza, Emanuel Gigliotti"},
+      {label:"DT", players:"Ariel Holan"},
+    ]},
+];
+
+// Plantel actual, con nombres reales confirmados en fuentes de 2026. No es
+// exhaustivo — un plantel profesional completo suele rondar los 30-35
+// jugadores y algunos movimientos de pases pueden no estar reflejados acá.
+const SQUAD = [
+  {name:"Rodrigo Rey", pos:"Arq", detail:"Arquero", age:34},
+  {name:"Joaquín Blázquez", pos:"Arq", detail:"Arquero", age:22},
+  {name:"Lucas Lavagnino", pos:"Arq", detail:"Arquero", age:24},
+  {name:"Santiago Arias", pos:"Def", detail:"Lateral derecho", age:34},
+  {name:"Kevin Lomónaco", pos:"Def", detail:"Defensor central", age:22},
+  {name:"Sebastián Valdez", pos:"Def", detail:"Defensor central", age:24},
+  {name:"Facundo Zabala", pos:"Def", detail:"Lateral izquierdo", age:27},
+  {name:"Nicolás Freire", pos:"Def", detail:"Defensor central", age:29},
+  {name:"Milton Valenzuela", pos:"Def", detail:"Lateral izquierdo", age:26},
+  {name:"Gonzalo Bordón", pos:"Def", detail:"Lateral izquierdo", age:26},
+  {name:"Leonardo Godoy", pos:"Def", detail:"Lateral derecho", age:24},
+  {name:"Juan Fedorco", pos:"Def", detail:"Defensor central", age:24},
+  {name:"Iván Marcone", pos:"Med", detail:"Mediocampista central", age:33},
+  {name:"Víctor Ignacio Malcorra", pos:"Med", detail:"Volante derecho", age:38},
+  {name:"Federico Mancuello", pos:"Med", detail:"Volante izquierdo", age:35},
+  {name:"Luciano Cabral", pos:"Med", detail:"Mediocampista ofensivo", age:29},
+  {name:"Lautaro Millán", pos:"Med", detail:"Mediocampista ofensivo", age:24},
+  {name:"Tomás Parmo", pos:"Med", detail:"Mediocampista ofensivo", age:21},
+  {name:"Rodrigo Fernández Cedrés", pos:"Med", detail:"Mediocampista defensivo", age:26},
+  {name:"Felipe Loyola", pos:"Med", detail:"Mediocampista central", age:26},
+  {name:"Pablo Galdames", pos:"Med", detail:"Mediocampista central", age:28},
+  {name:"Santiago Montiel", pos:"Del", detail:"Delantero izquierdo", age:26},
+  {name:"Gabriel Ávalos", pos:"Del", detail:"Centrodelantero", age:29},
+  {name:"Matías Abaldo", pos:"Del", detail:"Centrodelantero", age:24},
+  {name:"Ignacio Pussetto", pos:"Del", detail:"Delantero derecho", age:31},
+  {name:"Walter Mazzantti", pos:"Del", detail:"Delantero", age:22},
+  {name:"Diego Tarzia", pos:"Del", detail:"Delantero", age:21},
+  {name:"Josias Palais", pos:"Del", detail:"Delantero", age:20},
+];
+
+const POS_LABELS = {todos:"Todos", Arq:"Arqueros", Def:"Defensores", Med:"Mediocampo", Del:"Delanteros"};
+
+// URL BASE de tu Worker de Cloudflare (ver worker.js), sin barra final.
+// Reemplazá esto por la tuya después de desplegarlo.
+const WORKER_BASE = "https://independiente-fixture1.brandaster.workers.dev";
+
+// Datos fijos de referencia (Torneo Clausura 2026, Zona A). Se muestran solo
+// hasta que el Worker esté desplegado y empiece a traer datos en vivo desde
+// Promiedos y Wikipedia — después estos quedan reemplazados automáticamente.
+const RESULTS_FALLBACK = [
+  {fecha:1, date:"26/07", rival:"Estudiantes (La Plata)", cond:"L", score:"2-0", scorers:"—"},
+];
+let RESULTS = RESULTS_FALLBACK;
+let PROXIMOS = [];
+
+// ---------- RENDER ----------
+// ---------- UN DÍA COMO HOY ----------
+function renderEfemeride(){
+  const wrap = document.getElementById('efemeride-wrap');
+  if (!wrap) return;
+
+  const hoy = new Date();
+  const dia = hoy.getDate();
+  const mes = hoy.getMonth() + 1;
+
+  const deHoy = EFEMERIDES.filter(e => e.dia === dia && e.mes === mes);
+
+  if (deHoy.length) {
+    wrap.innerHTML = deHoy.map(e => `
+      <div class="efemeride">
+        <div class="tag mono">Un día como hoy · ${e.anio}</div>
+        <div class="texto">${e.texto}</div>
+      </div>`).join('');
+    return;
+  }
+
+  // Si no hay nada para la fecha exacta, mostramos el próximo hito que se
+  // viene (buscando por día del año, dando la vuelta si ya pasaron todos).
+  const hoyDiaAnio = diaDelAnio(dia, mes);
+  const ordenados = [...EFEMERIDES].sort((a, b) => diaDelAnio(a.dia, a.mes) - diaDelAnio(b.dia, b.mes));
+  const proxima = ordenados.find(e => diaDelAnio(e.dia, e.mes) > hoyDiaAnio) || ordenados[0];
+
+  const meses = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+  wrap.innerHTML = `
+    <div class="efemeride proxima">
+      <div class="tag mono">Sin hitos registrados para hoy · próximo: ${proxima.dia} ${meses[proxima.mes - 1]}</div>
+      <div class="texto">${proxima.anio} — ${proxima.texto}</div>
+    </div>`;
+}
+
+function diaDelAnio(dia, mes){
+  return new Date(2001, mes - 1, dia).getTime(); // año arbitrario fijo, solo para ordenar
+}
+
+
+// ---------- TRIVIA DEL CLUB ----------
+let triviaOrden = [];
+let triviaIdx = 0;
+let triviaAciertos = 0;
+let triviaRespondidas = 0;
+
+function mezclarTrivia(){
+  triviaOrden = TRIVIA.map((_, i) => i).sort(() => Math.random() - 0.5);
+  triviaIdx = 0;
+  triviaAciertos = 0;
+  triviaRespondidas = 0;
+}
+
+function renderTrivia(){
+  const wrap = document.getElementById('trivia-wrap');
+  if (!wrap) return;
+  if (!triviaOrden.length) mezclarTrivia();
+
+  if (triviaIdx >= triviaOrden.length) {
+    wrap.innerHTML = `
+      <div class="trivia-card">
+        <div class="trivia-pregunta">¡Completaste la trivia! Acertaste ${triviaAciertos} de ${triviaOrden.length}.</div>
+        <button class="trivia-siguiente mono" id="trivia-reiniciar">Jugar de nuevo</button>
+      </div>`;
+    document.getElementById('trivia-reiniciar').addEventListener('click', () => { mezclarTrivia(); renderTrivia(); });
+    return;
+  }
+
+  const q = TRIVIA[triviaOrden[triviaIdx]];
+  const opciones = q.opciones.map((op, i) =>
+    `<button class="trivia-opcion" data-i="${i}">${op}</button>`
+  ).join('');
+
+  wrap.innerHTML = `
+    <div class="trivia-card">
+      <div class="trivia-score mono">Pregunta ${triviaIdx + 1} de ${triviaOrden.length} · Aciertos: ${triviaAciertos}</div>
+      <div class="trivia-pregunta">${q.pregunta}</div>
+      <div class="trivia-opciones">${opciones}</div>
+    </div>`;
+
+  wrap.querySelectorAll('.trivia-opcion').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const elegida = Number(btn.dataset.i);
+      wrap.querySelectorAll('.trivia-opcion').forEach(b => {
+        b.disabled = true;
+        if (Number(b.dataset.i) === q.correcta) b.classList.add('correcta');
+      });
+      if (elegida !== q.correcta) btn.classList.add('incorrecta');
+      else triviaAciertos++;
+      triviaRespondidas++;
+
+      const siguiente = document.createElement('button');
+      siguiente.className = 'trivia-siguiente mono';
+      siguiente.textContent = triviaIdx + 1 < triviaOrden.length ? 'Siguiente →' : 'Ver resultado';
+      siguiente.addEventListener('click', () => { triviaIdx++; renderTrivia(); });
+      wrap.querySelector('.trivia-card').appendChild(siguiente);
+    });
+  });
+}
+
+function renderTimeline(){
+  const el = document.getElementById('timeline');
+  el.innerHTML = TIMELINE.map((s,i) => `
+    <div class="stop${i===0?' open':''}" data-i="${i}">
+      <div class="dot"></div>
+      <button class="stopbtn">
+        <span class="yr mono">${s.year}</span>
+        <span class="ti">${s.title}</span>
+      </button>
+      <p class="body">${s.text}</p>
+    </div>`).join('');
+  el.querySelectorAll('.stop').forEach(stop => {
+    stop.querySelector('.stopbtn').addEventListener('click', () => stop.classList.toggle('open'));
+  });
+}
+
+function renderNicknames(){
+  document.getElementById('nicknames').innerHTML = NICKNAMES.map(n => `<span class="nickname mono">${n}</span>`).join('');
+}
+
+function renderDTs(){
+  const wrap = document.getElementById('dts-wrap');
+  if (!wrap) return;
+  wrap.innerHTML = DTS_HISTORICOS.map(d => `
+    <div class="destacado-card">
+      <div class="nombre">${d.nombre}</div>
+      <div class="periodo mono">${d.periodo}</div>
+      <div class="dato">${d.dato}</div>
+    </div>`).join('');
+}
+
+function renderDestacados(){
+  const wrap = document.getElementById('destacados-wrap');
+  if (!wrap) return;
+  wrap.innerHTML = JUGADORES_DESTACADOS.map(j => `
+    <div class="destacado-card">
+      <div class="nombre">${j.nombre}</div>
+      <div class="periodo mono">${j.periodo}</div>
+      <div class="dato">${j.dato}</div>
+    </div>`).join('');
+}
+
+function renderHistoricSquads(){
+  const el = document.getElementById('historic-squads');
+  el.innerHTML = HISTORIC_SQUADS.map((sq,i) => `
+    <div class="squadcard${i===0?' open':''}" data-i="${i}">
+      <button class="squadbtn">
+        <span><span class="yr mono">${sq.year}</span><span class="ti">${sq.title}</span></span>
+        <span class="plus mono">${i===0?'–':'+'}</span>
+      </button>
+      <div class="squadbody">
+        <p>${sq.context}</p>
+        ${sq.lines.map(l => `<div style="margin-bottom:0.6rem;"><div class="line-label mono">${l.label}</div><div>${l.players}</div></div>`).join('')}
+      </div>
+    </div>`).join('');
+  el.querySelectorAll('.squadcard').forEach(card => {
+    const btn = card.querySelector('.squadbtn');
+    btn.addEventListener('click', () => {
+      card.classList.toggle('open');
+      btn.querySelector('.plus').textContent = card.classList.contains('open') ? '–' : '+';
+    });
+  });
+}
+
+// ---------- BUSCADOR DE JUGADORES POR NOMBRE ----------
+// Busca tanto en los planteles históricos (parseando el texto separado por
+// comas de cada línea) como en el plantel actual, sin distinguir mayúsculas
+// ni acentos.
+function normalizar(str){
+  return (str || '')
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // saca acentos
+    .toLowerCase()
+    .replace(/[().,]/g, ' ') // saca paréntesis y puntuación (ej. "San Martín (Tucumán)")
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function buscarJugadores(query){
+  const q = normalizar(query);
+  if (!q) return [];
+  const hits = [];
+
+  HISTORIC_SQUADS.forEach(sq => {
+    sq.lines.forEach(line => {
+      line.players.split(',').forEach(nombreRaw => {
+        const nombre = nombreRaw.trim();
+        if (nombre && normalizar(nombre).includes(q)) {
+          hits.push({ nombre, contexto: `${sq.year} · ${sq.title}` });
+        }
+      });
+    });
+  });
+
+  SQUAD.forEach(p => {
+    if (normalizar(p.name).includes(q)) {
+      hits.push({ nombre: p.name, contexto: `Plantel actual · ${p.detail}` });
+    }
+  });
+
+  JUGADORES_DESTACADOS.forEach(j => {
+    if (normalizar(j.nombre).includes(q)) {
+      hits.push({ nombre: j.nombre, contexto: `Destacado · ${j.periodo}` });
+    }
+  });
+
+  return hits;
+}
+
+function renderBusquedaJugadores(query){
+  const wrap = document.getElementById('jugador-resultados');
+  const listaHistorica = document.getElementById('historic-squads');
+  const q = query.trim();
+
+  if (!q) {
+    wrap.innerHTML = '';
+    listaHistorica.style.display = '';
+    return;
+  }
+  listaHistorica.style.display = 'none';
+
+  const hits = buscarJugadores(q);
+  if (!hits.length) {
+    wrap.innerHTML = `<p class="jugador-sin mono">No se encontró ningún jugador con "${q}".</p>`;
+    return;
+  }
+  wrap.innerHTML = hits.map(h => `
+    <div class="jugador-hit">
+      <span class="nombre">${h.nombre}</span>
+      <span class="contexto">${h.contexto}</span>
+    </div>`).join('');
+}
+
+document.getElementById('jugador-search').addEventListener('input', (e) => {
+  renderBusquedaJugadores(e.target.value);
+});
+
+// ---------- BUSCADOR GLOBAL ----------
+// Revisa todo el contenido de la app: historia, efemérides, planteles
+// históricos, plantel actual, jugadores destacados, DTs y apodos de rivales.
+function buscarGlobal(query){
+  const q = normalizar(query);
+  if (!q) return {};
+
+  const resultados = {};
+
+  const timelineHits = TIMELINE.filter(t => normalizar(t.year + ' ' + t.title + ' ' + t.text).includes(q))
+    .map(t => ({ titulo: `${t.year} — ${t.title}`, snippet: t.text, tab: 'historia' }));
+  if (timelineHits.length) resultados['Historia'] = timelineHits;
+
+  const efemerideHits = EFEMERIDES.filter(e => normalizar(e.anio + ' ' + e.texto).includes(q))
+    .map(e => ({ titulo: `${e.dia}/${e.mes} · ${e.anio}`, snippet: e.texto, tab: 'historia' }));
+  if (efemerideHits.length) resultados['Efemérides'] = efemerideHits;
+
+  const jugadoresHits = buscarJugadores(query)
+    .map(h => ({ titulo: h.nombre, snippet: h.contexto, tab: h.contexto.includes('actual') ? 'plantel' : 'planteles' }));
+  if (jugadoresHits.length) resultados['Jugadores'] = jugadoresHits;
+
+  const dtHits = DTS_HISTORICOS.filter(d => normalizar(d.nombre + ' ' + d.dato).includes(q))
+    .map(d => ({ titulo: d.nombre, snippet: d.dato, tab: 'planteles' }));
+  if (dtHits.length) resultados['Directores técnicos'] = dtHits;
+
+  const apodoHits = Object.entries(APODOS_RIVALES).filter(([k, v]) => normalizar(k + ' ' + v.apodo).includes(q))
+    .map(([k, v]) => ({ titulo: v.apodo, snippet: v.origen, tab: 'resultados' }));
+  if (apodoHits.length) resultados['Rivales y apodos'] = apodoHits;
+
+  return resultados;
+}
+
+function renderBusquedaGlobal(query){
+  const wrap = document.getElementById('buscar-global-resultados');
+  const q = query.trim();
+  if (!q) { wrap.innerHTML = ''; return; }
+
+  const resultados = buscarGlobal(q);
+  const categorias = Object.keys(resultados);
+  if (!categorias.length) {
+    wrap.innerHTML = `<p class="mono" style="opacity:0.6;">No se encontró nada con "${q}".</p>`;
+    return;
+  }
+
+  wrap.innerHTML = categorias.map(cat => `
+    <div class="bg-categoria">${cat}</div>
+    ${resultados[cat].map(r => `
+      <div class="bg-hit" data-tab="${r.tab}">
+        <div class="titulo">${r.titulo}</div>
+        <div class="snippet">${r.snippet.length > 140 ? r.snippet.slice(0, 140) + '…' : r.snippet}</div>
+      </div>`).join('')}
+  `).join('');
+
+  wrap.querySelectorAll('.bg-hit').forEach(el => {
+    el.addEventListener('click', () => {
+      cerrarBusquedaGlobal();
+      const btn = document.querySelector(`.tabbtn[data-tab="${el.dataset.tab}"]`);
+      if (btn) btn.click();
+    });
+  });
+}
+
+function abrirBusquedaGlobal(){
+  document.getElementById('buscar-global-overlay').style.display = 'block';
+  document.getElementById('buscar-global-input').focus();
+}
+function cerrarBusquedaGlobal(){
+  document.getElementById('buscar-global-overlay').style.display = 'none';
+  document.getElementById('buscar-global-input').value = '';
+  document.getElementById('buscar-global-resultados').innerHTML = '';
+}
+
+document.getElementById('buscar-global-btn').addEventListener('click', abrirBusquedaGlobal);
+document.getElementById('buscar-global-cerrar').addEventListener('click', cerrarBusquedaGlobal);
+document.getElementById('buscar-global-input').addEventListener('input', (e) => renderBusquedaGlobal(e.target.value));
+document.getElementById('buscar-global-overlay').addEventListener('click', (e) => {
+  if (e.target.id === 'buscar-global-overlay') cerrarBusquedaGlobal();
+});
+
+let squadFilter = 'todos';
+function renderFilters(){
+  document.getElementById('filters').innerHTML = Object.keys(POS_LABELS).map(k =>
+    `<button class="filterbtn mono${k===squadFilter?' active':''}" data-k="${k}">${POS_LABELS[k]}</button>`).join('');
+  document.querySelectorAll('.filterbtn').forEach(b => b.addEventListener('click', () => {
+    squadFilter = b.dataset.k; renderFilters(); renderSquad();
+  }));
+}
+function renderSquad(){
+  const list = squadFilter === 'todos' ? SQUAD : SQUAD.filter(p => p.pos === squadFilter);
+  document.getElementById('squadgrid').innerHTML = list.map(p => `
+    <div class="player" style="display:flex; align-items:center; gap:0.7rem;">
+      <div style="width:40px; height:40px; border-radius:50%; background:var(--verde-deep); border:1px solid var(--verde-nilo); display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:0.85rem; color:var(--verde-bright); flex-shrink:0;">${iniciales(p.name)}</div>
+      <div>
+        <div class="name">${p.name}</div>
+        <div class="detail mono">${p.detail} · ${p.age} años</div>
+      </div>
+    </div>`).join('');
+}
+
+function renderResults(){
+  document.getElementById('results').innerHTML = RESULTS.map(r => `
+    <div class="rrow">
+      <span class="date mono">${r.date}</span>
+      <span class="cond mono">${r.cond}</span>
+      <span class="rival">${r.rival}</span>
+      <span class="score mono">${r.score}</span>
+      <span class="scorers">${r.scorers}</span>
+    </div>`).join('');
+  renderRacha();
+  renderCompartir();
+}
+
+// ---------- COMPARTIR TARJETA DE RESULTADO ----------
+// Arma una imagen con el último resultado usando <canvas>, todo en el
+// celular (sin servidor), y la comparte con la función nativa del celular
+// (o la descarga, si el navegador no soporta compartir archivos).
+function renderCompartir(){
+  const wrap = document.getElementById('compartir-wrap');
+  if (!wrap) return;
+  if (!RESULTS.length) { wrap.innerHTML = ''; return; }
+  wrap.innerHTML = `
+    <button class="compartir-btn mono" id="compartir-btn">📤 Compartir último resultado</button>
+    <button class="compartir-btn mono" id="resumen-btn" style="margin-left:0.6rem;">📊 Resumen de temporada</button>`;
+  document.getElementById('compartir-btn').addEventListener('click', compartirResultado);
+  document.getElementById('resumen-btn').addEventListener('click', compartirResumenTemporada);
+}
+
+function cargarImagen(src){
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => resolve(img);
+    img.onerror = reject;
+    img.src = src;
+  });
+}
+
+async function compartirResultado(){
+  const btn = document.getElementById('compartir-btn');
+  const textoOriginal = btn.textContent;
+  btn.textContent = 'Armando imagen…';
+  btn.disabled = true;
+
+  try {
+    const r = RESULTS[0];
+    const letra = resultLetter(r.score);
+    const colorResultado = { g: '#2e9e63', e: '#c9a04a', p: '#9c4a2b' }[letra] || '#2e9e63';
+
+    const canvas = document.createElement('canvas');
+    canvas.width = 900;
+    canvas.height = 900;
+    const ctx = canvas.getContext('2d');
+
+    // Fondo
+    ctx.fillStyle = '#0d1f16';
+    ctx.fillRect(0, 0, 900, 900);
+    ctx.strokeStyle = colorResultado;
+    ctx.lineWidth = 10;
+    ctx.strokeRect(20, 20, 860, 860);
+
+    // Título
+    ctx.fillStyle = '#2e9e63';
+    ctx.font = '600 28px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText((r.cond === 'L' ? 'DE LOCAL' : 'DE VISITANTE') + ' · PRIMERA NACIONAL', 450, 100);
+
+    // Escudos
+    const independienteUrl = 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_del_Club_Atl%C3%A9tico_Independiente.svg';
+    const rivalUrl = buscarEscudo(r.rival);
+    try {
+      const [independienteImg, rivalImg] = await Promise.all([
+        cargarImagen(independienteUrl),
+        rivalUrl ? cargarImagen(rivalUrl) : Promise.resolve(null),
+      ]);
+      ctx.drawImage(independienteImg, 130, 160, 220, 220);
+      if (rivalImg) ctx.drawImage(rivalImg, 550, 160, 220, 220);
+    } catch {
+      // si algún escudo no carga (CORS, sin conexión, etc.), seguimos sin imagen
+    }
+
+    // Marcador
+    ctx.fillStyle = '#f1ecdd';
+    ctx.font = '900 160px sans-serif';
+    ctx.fillText(r.score, 450, 560);
+
+    // Nombres
+    ctx.font = '600 34px sans-serif';
+    ctx.fillText('INDEP.', 240, 630);
+    ctx.fillText(r.rival.toUpperCase(), 660, 630);
+
+    // Fecha y resultado
+    ctx.fillStyle = colorResultado;
+    ctx.font = '700 30px monospace';
+    const textoResultado = letra === 'g' ? 'VICTORIA' : letra === 'p' ? 'DERROTA' : 'EMPATE';
+    ctx.fillText(`${textoResultado} · ${r.date}`, 450, 720);
+
+    // Pie de marca
+    ctx.fillStyle = 'rgba(241,236,221,0.5)';
+    ctx.font = '400 22px monospace';
+    ctx.fillText('Independiente · Avellaneda', 450, 820);
+
+    canvas.toBlob(async (blob) => {
+      const file = new File([blob], 'independiente-resultado.png', { type: 'image/png' });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          title: 'Resultado de Independiente',
+          text: `Independiente ${r.score} ${r.rival}`,
+        });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'independiente-resultado.png';
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      btn.textContent = textoOriginal;
+      btn.disabled = false;
+    }, 'image/png');
+  } catch (err) {
+    console.warn('No se pudo compartir el resultado:', err);
+    btn.textContent = textoOriginal;
+    btn.disabled = false;
+  }
+}
+
+// ---------- RESUMEN DE TEMPORADA ----------
+// Trae la fila de Independiente en la tabla de la Zona A (posición, PJ, G, E, P,
+// goles) y arma una tarjeta resumen con eso más la racha reciente, usando la
+// misma técnica de <canvas> que "compartir resultado".
+// Trae la fila de Independiente en la tabla de la Zona A, reusando lo ya cargado si
+// existe (para el comparador) o pidiéndolo fresco si hace falta.
+async function obtenerIndependienteEnTabla(){
+  let independienteRow = equiposPorZona.A.find(e => /^independiente$/i.test(e.equipo));
+  if (!independienteRow) {
+    const resp = await fetch(`${WORKER_BASE}/standings?zona=A`, { cache: 'no-store' });
+    if (resp.ok) {
+      const data = await resp.json();
+      independienteRow = (data.equipos || []).find(e => /^independiente$/i.test(e.equipo));
+    }
+  }
+  return independienteRow || null;
+}
+
+// El torneo tiene 36 fechas en total (fase de zonas, ida y vuelta entre 18
+// equipos). El PJ de Independiente en la tabla nos dice en qué fecha estamos, sin
+// necesitar scrapear ese número específico de ningún lado.
+const FECHAS_TOTALES = 36;
+
+async function renderFechasRestantes(){
+  const wrap = document.getElementById('fechas-restantes-wrap');
+  if (!wrap) return;
+  try {
+    const independienteRow = await obtenerIndependienteEnTabla();
+    if (!independienteRow || independienteRow.jugados == null) { wrap.innerHTML = ''; return; }
+    const restantes = FECHAS_TOTALES - independienteRow.jugados;
+    wrap.innerHTML = `
+      <div class="standing" style="margin-top:0.5rem;">
+        <span>Fechas restantes (fase de zonas)</span>
+        <span class="pos mono">${restantes} de ${FECHAS_TOTALES}</span>
+      </div>`;
+  } catch (err) {
+    console.warn('No se pudo calcular fechas restantes:', err);
+    wrap.innerHTML = '';
+  }
+}
+
+async function compartirResumenTemporada(){
+  const btn = document.getElementById('resumen-btn');
+  const textoOriginal = btn.textContent;
+  btn.textContent = 'Armando resumen…';
+  btn.disabled = true;
+
+  try {
+    const independienteRow = await obtenerIndependienteEnTabla();
+    if (!independienteRow) throw new Error('No se pudo obtener la posición de Independiente en la tabla');
+
+    const canvas = document.createElement('canvas');
+    canvas.width = 900;
+    canvas.height = 1000;
+    const ctx = canvas.getContext('2d');
+
+    ctx.fillStyle = '#0d1f16';
+    ctx.fillRect(0, 0, 900, 1000);
+    ctx.strokeStyle = '#2e9e63';
+    ctx.lineWidth = 10;
+    ctx.strokeRect(20, 20, 860, 960);
+
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#2e9e63';
+    ctx.font = '600 26px monospace';
+    ctx.fillText('RESUMEN DE TEMPORADA · PRIMERA NACIONAL', 450, 100);
+
+    try {
+      const independienteImg = await cargarImagen('https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_del_Club_Atl%C3%A9tico_Independiente.svg');
+      ctx.drawImage(independienteImg, 350, 130, 200, 200);
+    } catch { /* seguimos sin el escudo si no carga */ }
+
+    ctx.fillStyle = '#f1ecdd';
+    ctx.font = '900 90px sans-serif';
+    ctx.fillText(`${independienteRow.pos}°`, 450, 440);
+    ctx.font = '600 30px sans-serif';
+    ctx.fillText('EN LA ZONA A', 450, 480);
+
+    // Fila de estadísticas
+    const stats = [
+      { label: 'PJ', val: independienteRow.jugados },
+      { label: 'G', val: independienteRow.ganados },
+      { label: 'E', val: independienteRow.empatados },
+      { label: 'P', val: independienteRow.perdidos },
+      { label: 'GF', val: independienteRow.gf },
+      { label: 'GC', val: independienteRow.gc },
+      { label: 'PTS', val: independienteRow.pts },
+    ];
+    const startX = 130;
+    const gap = (900 - 260) / (stats.length - 1);
+    stats.forEach((s, i) => {
+      const x = startX + i * gap;
+      ctx.fillStyle = '#f1ecdd';
+      ctx.font = '700 40px monospace';
+      ctx.fillText(String(s.val), x, 580);
+      ctx.fillStyle = '#2e9e63';
+      ctx.font = '600 20px monospace';
+      ctx.fillText(s.label, x, 610);
+    });
+
+    // Racha reciente (últimos resultados disponibles)
+    ctx.fillStyle = '#c9a04a';
+    ctx.font = '600 24px monospace';
+    ctx.fillText('RACHA RECIENTE', 450, 690);
+
+    const ultimos = RESULTS.slice(0, 5).reverse();
+    const colores = { g: '#2e9e63', e: '#c9a04a', p: '#9c4a2b' };
+    const labels = { g: 'G', e: 'E', p: 'P' };
+    const totalW = ultimos.length * 90;
+    const startCx = 450 - totalW / 2 + 45;
+    ultimos.forEach((r, i) => {
+      const letra = resultLetter(r.score);
+      const cx = startCx + i * 90;
+      ctx.beginPath();
+      ctx.arc(cx, 750, 35, 0, Math.PI * 2);
+      ctx.fillStyle = colores[letra] || '#666';
+      ctx.fill();
+      ctx.fillStyle = letra === 'p' ? '#f1ecdd' : '#0d1f16';
+      ctx.font = '700 30px sans-serif';
+      ctx.fillText(labels[letra] || '?', cx, 761);
+    });
+
+    ctx.fillStyle = 'rgba(241,236,221,0.5)';
+    ctx.font = '400 20px monospace';
+    ctx.fillText('Independiente · Avellaneda', 450, 900);
+
+    canvas.toBlob(async (blob) => {
+      const file = new File([blob], 'independiente-resumen-temporada.png', { type: 'image/png' });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          title: 'Resumen de temporada de Independiente',
+          text: `Independiente está ${independienteRow.pos}° en la Zona A con ${independienteRow.pts} puntos`,
+        });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'independiente-resumen-temporada.png';
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      btn.textContent = textoOriginal;
+      btn.disabled = false;
+    }, 'image/png');
+  } catch (err) {
+    console.warn('No se pudo armar el resumen de temporada:', err);
+    btn.textContent = textoOriginal;
+    btn.disabled = false;
+  }
+}
+
+// El "score" siempre viene como "goles de Independiente - goles del rival" (así lo
+// entrega el scraper), sin importar si Independiente jugó de local o visitante.
+function resultLetter(score){
+  const m = /^(\d+)\s*-\s*(\d+)$/.exec((score || '').trim());
+  if (!m) return null;
+  const [, gf, gc] = m.map(Number);
+  if (gf > gc) return 'g';
+  if (gf < gc) return 'p';
+  return 'e';
+}
+
+function renderRacha(){
+  const wrap = document.getElementById('racha-wrap');
+  if (!wrap) return;
+  const ultimos = RESULTS.slice(0, 5).reverse(); // más viejo a la izquierda, más reciente a la derecha
+  if (!ultimos.length) { wrap.innerHTML = ''; return; }
+
+  const labels = { g: 'G', e: 'E', p: 'P' };
+  const icons = ultimos.map(r => {
+    const letra = resultLetter(r.score);
+    if (!letra) return '';
+    return `<div class="racha-icon ${letra}" title="${r.rival}: ${r.score}">${labels[letra]}</div>`;
+  }).join('');
+
+  wrap.innerHTML = `
+    <div class="racha">
+      <div class="label mono">Racha (últimos ${ultimos.length})</div>
+      <div class="racha-icons">${icons}</div>
+    </div>`;
+  renderRachaLocalVisitante();
+}
+
+// Misma racha de arriba, pero separada en los últimos partidos de local y los
+// últimos de visitante — usando el campo "cond" (L/V) que ya viene en cada
+// resultado, sin necesitar ningún dato nuevo.
+function renderRachaFila(cond, etiqueta){
+  const labels = { g: 'G', e: 'E', p: 'P' };
+  const partidos = RESULTS.filter(r => r.cond === cond).slice(0, 5).reverse();
+  if (!partidos.length) return '';
+  const icons = partidos.map(r => {
+    const letra = resultLetter(r.score);
+    if (!letra) return '';
+    return `<div class="racha-icon ${letra}" title="${r.rival}: ${r.score}">${labels[letra]}</div>`;
+  }).join('');
+  return `
+    <div class="racha">
+      <div class="label mono">${etiqueta} (últimos ${partidos.length})</div>
+      <div class="racha-icons">${icons}</div>
+    </div>`;
+}
+
+function renderRachaLocalVisitante(){
+  const wrap = document.getElementById('racha-lv-wrap');
+  if (!wrap) return;
+  const local = renderRachaFila('L', 'De local');
+  const visitante = renderRachaFila('V', 'De visitante');
+  wrap.innerHTML = local + visitante;
+}
+
+function renderProximos(){
+  const wrap = document.getElementById('proximo-wrap');
+  const heroEl = document.getElementById('countdown-hero');
+  const heroCard = document.getElementById('hero-proximo');
+  if (!PROXIMOS.length) {
+    wrap.innerHTML = `<p class="mono" style="font-size:0.8rem; opacity:0.5;">Conectá el Worker (ver README) para ver la cuenta regresiva al próximo partido.</p>`;
+    if (heroEl) heroEl.innerHTML = '';
+    if (heroCard) heroCard.innerHTML = '';
+    stopCountdown();
+    return;
+  }
+  const p = PROXIMOS[0];
+  const esLocal = p.condicion === 'L';
+  const rivalVs = esLocal ? `Independiente vs ${p.rival}` : `${p.rival} vs Independiente`;
+  const condLabel = esLocal ? 'Local · Libertadores de América' : 'Visitante';
+  const fechaLegible = formatFechaLegible(p);
+
+  wrap.innerHTML = `
+    <div class="proximo">
+      <div class="tag mono">Próximo partido</div>
+      <div class="match">${rivalVs}</div>
+      <div class="mono" style="font-size:0.8rem; opacity:0.8; margin-top:0.2rem;">${p.dia} · ${p.dato || 'hora a confirmar'}</div>
+      <div class="countdown-box" id="countdown-detail"></div>
+      <div id="clima-wrap"></div>
+      <div id="prediccion-wrap"></div>
+    </div>`;
+
+  if (heroCard) {
+    const independienteCrest = '<img src="https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_del_Club_Atl%C3%A9tico_Independiente.svg" alt="Escudo de Independiente" style="width:36px; height:36px; object-fit:contain;">';
+    const rivalCrest = escudoHtml(p.rival, 36);
+    const [crestIzq, crestDer] = esLocal ? [independienteCrest, rivalCrest] : [rivalCrest, independienteCrest];
+    heroCard.innerHTML = `
+      <div class="tag mono">Próximo partido</div>
+      <div class="match-row">${crestIzq}<span class="match">${rivalVs}</span>${crestDer}</div>
+      <div class="cond mono">${condLabel}</div>
+      <div class="when mono">${fechaLegible}${p.dato ? ' · ' + p.dato + ' hs' : ''}</div>`;
+  }
+
+  startCountdown(p);
+  renderRivales();
+  fetchClima(p);
+  renderPrediccion(p);
+}
+
+// ---------- CLIMA DEL DÍA DEL PARTIDO ----------
+// Usa Open-Meteo (gratis, sin clave, con CORS abierto) para el pronóstico del
+// día del próximo partido. Solo se puede pedir hasta 16 días a futuro — si el
+// partido está más lejos, no mostramos nada en vez de inventar un dato.
+const CABALLITO_LAT = -34.6186;
+const CABALLITO_LON = -58.4372;
+
+// Códigos WMO de Open-Meteo simplificados a emoji + texto corto.
+function climaDesc(code){
+  if (code === 0) return { icon: '☀️', texto: 'despejado' };
+  if ([1, 2].includes(code)) return { icon: '🌤️', texto: 'poco nublado' };
+  if (code === 3) return { icon: '☁️', texto: 'nublado' };
+  if ([45, 48].includes(code)) return { icon: '🌫️', texto: 'niebla' };
+  if ([51, 53, 55, 56, 57].includes(code)) return { icon: '🌦️', texto: 'llovizna' };
+  if ([61, 63, 65, 66, 67, 80, 81, 82].includes(code)) return { icon: '🌧️', texto: 'lluvia' };
+  if ([71, 73, 75, 77, 85, 86].includes(code)) return { icon: '🌨️', texto: 'nieve' };
+  if ([95, 96, 99].includes(code)) return { icon: '⛈️', texto: 'tormenta' };
+  return { icon: '🌡️', texto: '' };
+}
+
+async function fetchClima(proximo){
+  const wrap = document.getElementById('clima-wrap');
+  if (!wrap) return;
+
+  const target = parseProximoDate(proximo);
+  if (!target) { wrap.innerHTML = ''; return; }
+
+  const hoy = new Date();
+  const diffDias = Math.round((target - hoy) / 86400000);
+  if (diffDias < 0 || diffDias > 15) { wrap.innerHTML = ''; return; } // fuera del rango del pronóstico
+
+  try {
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${CABALLITO_LAT}&longitude=${CABALLITO_LON}&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=America%2FArgentina%2FBuenos_Aires&forecast_days=16`;
+    const resp = await fetch(url);
+    if (!resp.ok) throw new Error('respuesta no OK');
+    const data = await resp.json();
+
+    const fechaTarget = target.toISOString().slice(0, 10);
+    const idx = data.daily.time.indexOf(fechaTarget);
+    if (idx === -1) { wrap.innerHTML = ''; return; }
+
+    const code = data.daily.weather_code[idx];
+    const tmax = Math.round(data.daily.temperature_2m_max[idx]);
+    const tmin = Math.round(data.daily.temperature_2m_min[idx]);
+    const lluvia = data.daily.precipitation_probability_max[idx];
+    const { icon, texto } = climaDesc(code);
+
+    wrap.innerHTML = `
+      <div class="clima-box">
+        <span class="clima-icon">${icon}</span>
+        <span class="mono">${tmin}° / ${tmax}° · ${texto}${lluvia != null ? ' · ' + lluvia + '% lluvia' : ''}</span>
+      </div>`;
+  } catch (err) {
+    console.warn('No se pudo traer el clima:', err);
+    wrap.innerHTML = '';
+  }
+}
+
+// ---------- PREDICCIÓN DEL RESULTADO ----------
+// Se guarda solo en este celular (localStorage), nunca se manda a ningún
+// servidor. La clave identifica el partido por rival + fecha, así que sirve
+// para un solo próximo partido a la vez.
+const PREDICCION_KEY = 'independiente_prediccion';
+
+function partidoId(p){
+  return `${normalizar(p.rival)}|${p.dia}`;
+}
+
+function getPrediccionGuardada(){
+  try {
+    const raw = localStorage.getItem(PREDICCION_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch { return null; }
+}
+
+function guardarPrediccion(id, golIndependiente, golRival){
+  localStorage.setItem(PREDICCION_KEY, JSON.stringify({ id, golIndependiente, golRival, resuelta: false }));
+}
+
+function renderPrediccion(proximo){
+  const wrap = document.getElementById('prediccion-wrap');
+  if (!wrap) return;
+  const id = partidoId(proximo);
+  const guardada = getPrediccionGuardada();
+
+  // Ya hay una predicción guardada para ESTE partido puntual
+  if (guardada && guardada.id === id) {
+    wrap.innerHTML = `
+      <div class="prediccion">
+        <div class="label mono">Tu predicción</div>
+        <div class="prediccion-guardada mono">Independiente ${guardada.golIndependiente} - ${guardada.golRival} ${proximo.rival}</div>
+      </div>`;
+    return;
+  }
+
+  // No hay predicción para este partido todavía: mostrar el formulario
+  wrap.innerHTML = `
+    <div class="prediccion">
+      <div class="label mono">¿Cómo termina?</div>
+      <div class="prediccion-form">
+        <span class="mono">Independiente</span>
+        <input type="number" min="0" max="20" id="pred-independiente" inputmode="numeric">
+        <span>-</span>
+        <input type="number" min="0" max="20" id="pred-rival" inputmode="numeric">
+        <span class="mono">${proximo.rival}</span>
+        <button id="pred-guardar">Guardar</button>
+      </div>
+    </div>`;
+
+  document.getElementById('pred-guardar').addEventListener('click', () => {
+    const gf = document.getElementById('pred-independiente').value;
+    const gr = document.getElementById('pred-rival').value;
+    if (gf === '' || gr === '') return;
+    guardarPrediccion(id, Number(gf), Number(gr));
+    renderPrediccion(proximo);
+  });
+}
+
+// Compara la predicción guardada contra un resultado real ya publicado, y
+// muestra si acertaste el marcador exacto, el resultado (G/E/P), o ninguno.
+// Se llama cada vez que llegan resultados nuevos del Worker.
+function chequearPrediccion(){
+  const guardada = getPrediccionGuardada();
+  if (!guardada || guardada.resuelta) return;
+
+  const real = RESULTS.find(r => `${normalizar(r.rival)}|${r.date}` === guardada.id);
+  if (!real) return; // el partido todavía no se jugó (o no está en los resultados recientes)
+
+  const m = /^(\d+)\s*-\s*(\d+)$/.exec((real.score || '').trim());
+  if (!m) return;
+  const [, gfReal, grReal] = m.map(Number);
+
+  const exacto = guardada.golIndependiente === gfReal && guardada.golRival === grReal;
+  const resultadoPredicho = guardada.golIndependiente > guardada.golRival ? 'G' : guardada.golIndependiente < guardada.golRival ? 'P' : 'E';
+  const resultadoReal = gfReal > grReal ? 'G' : gfReal < grReal ? 'P' : 'E';
+  const acertoResultado = resultadoPredicho === resultadoReal;
+
+  guardada.resuelta = true;
+  guardada.acierto = exacto ? 'exacto' : acertoResultado ? 'parcial' : 'fallo';
+  guardada.real = `${gfReal}-${grReal}`;
+  localStorage.setItem(PREDICCION_KEY, JSON.stringify(guardada));
+
+  const wrap = document.getElementById('prediccion-wrap');
+  if (!wrap) return;
+  const mensajes = {
+    exacto: '🎯 ¡Le diste justo al marcador!',
+    parcial: '👍 Acertaste el resultado, el marcador no fue exacto.',
+    fallo: '❌ Esta vez no acertaste.',
+  };
+  wrap.innerHTML = `
+    <div class="prediccion">
+      <div class="label mono">Tu predicción</div>
+      <div class="prediccion-guardada mono">Vos dijiste ${guardada.golIndependiente}-${guardada.golRival} · Terminó ${guardada.real}</div>
+      <div class="prediccion-resultado ${guardada.acierto}">${mensajes[guardada.acierto]}</div>
+    </div>`;
+}
+
+// Tarjetas de próximos rivales, cada una con un botón que abre una búsqueda
+// de Google ya armada con el historial de enfrentamientos. No hay ninguna
+// fuente confiable para scrapear ese historial, así que en vez de mostrar
+// datos que se pueden desactualizar o romper, dejamos que cada uno abra
+// resultados reales y actuales cuando lo necesite.
+// Mismo criterio flexible que buscarEscudo, para no depender de que el
+// nombre venga escrito exactamente igual.
+function buscarApodo(nombre){
+  const n = normalizar(nombre);
+  if (APODOS_RIVALES[n]) return APODOS_RIVALES[n];
+  const key = Object.keys(APODOS_RIVALES).find(k => n.includes(k) || k.includes(n));
+  return key ? APODOS_RIVALES[key] : null;
+}
+
+function renderRivales(){
+  const wrap = document.getElementById('rivales-wrap');
+  if (!wrap) return;
+  if (!PROXIMOS.length) { wrap.innerHTML = ''; return; }
+
+  const proximos = PROXIMOS.slice(0, 5);
+  const cards = proximos.map(p => {
+    const query = encodeURIComponent(`Independiente vs ${p.rival} historial enfrentamientos`);
+    const url = `https://www.google.com/search?q=${query}`;
+    const condLabel = p.condicion === 'L' ? 'Local' : 'Visitante';
+    const apodoInfo = buscarApodo(p.rival);
+    const apodoHtml = apodoInfo
+      ? `<div class="apodo mono" title="${apodoInfo.origen}">${apodoInfo.apodo} ℹ️</div>`
+      : '';
+    return `
+      <div class="rival-card">
+        <div class="info" style="display:flex; align-items:center; gap:0.7rem;">
+          ${escudoHtml(p.rival, 32)}
+          <div>
+            <div class="name">${p.rival}</div>
+            ${apodoHtml}
+            <div class="when mono">${p.dia}${p.dato ? ' · ' + p.dato : ''} · ${condLabel}</div>
+          </div>
+        </div>
+        <a class="rival-btn" href="${url}" target="_blank" rel="noopener noreferrer">Ver historial ↗</a>
+      </div>`;
+  }).join('');
+
+  wrap.innerHTML = `
+    <div class="rivales">
+      <div class="label mono">Próximos rivales</div>
+      ${cards}
+    </div>`;
+}
+
+// Convierte "DD/MM" en algo legible tipo "vie. 18 de jul." usando el mismo
+// cálculo de año que la cuenta regresiva (parseProximoDate).
+function formatFechaLegible(p){
+  const date = parseProximoDate(p);
+  if (!date) return p.dia;
+  const dias = ['dom.', 'lun.', 'mar.', 'mié.', 'jue.', 'vie.', 'sáb.'];
+  const meses = ['ene.', 'feb.', 'mar.', 'abr.', 'may.', 'jun.', 'jul.', 'ago.', 'sep.', 'oct.', 'nov.', 'dic.'];
+  return `${dias[date.getDay()]} ${date.getDate()} de ${meses[date.getMonth()]}`;
+}
+
+// ---------- CUENTA REGRESIVA AL PRÓXIMO PARTIDO ----------
+let countdownInterval = null;
+let livePollInterval = null;
+let liveStatusText = null;
+
+// "dia" viene como DD/MM (sin año) y "dato" como HH:MM. Arma una fecha real,
+// asumiendo el año actual (o el que viene, si esa fecha ya pasó este año).
+function parseProximoDate(p){
+  const [d, m] = (p.dia || '').split('/').map(Number);
+  if (!d || !m) return null;
+  const [hh, mm] = (p.dato && /^\d{1,2}:\d{2}$/.test(p.dato)) ? p.dato.split(':').map(Number) : [12, 0];
+
+  const now = new Date();
+  let year = now.getFullYear();
+  let target = new Date(year, m - 1, d, hh, mm, 0);
+  if (target.getTime() < now.getTime() - 3 * 60 * 60 * 1000) {
+    target = new Date(year + 1, m - 1, d, hh, mm, 0);
+  }
+  return target;
+}
+
+function startCountdown(proximo){
+  stopCountdown();
+  stopLivePoll();
+  liveStatusText = null;
+  const target = parseProximoDate(proximo);
+  if (!target) return;
+
+  function tick(){
+    const diffMs = target.getTime() - Date.now();
+    const heroEl = document.getElementById('countdown-hero');
+    const detailEl = document.getElementById('countdown-detail');
+
+    if (diffMs <= 0 && diffMs > -3 * 60 * 60 * 1000) {
+      startLivePoll(proximo);
+      renderLiveStatus();
+      return;
+    }
+    if (diffMs <= 0) {
+      stopLivePoll();
+      if (heroEl) heroEl.innerHTML = '';
+      if (detailEl) detailEl.innerHTML = '';
+      stopCountdown();
+      return;
+    }
+
+    const totalSec = Math.floor(diffMs / 1000);
+    const days = Math.floor(totalSec / 86400);
+    const hours = Math.floor((totalSec % 86400) / 3600);
+    const mins = Math.floor((totalSec % 3600) / 60);
+    const secs = totalSec % 60;
+    const pad = (n) => String(n).padStart(2, '0');
+
+    if (heroEl) {
+      heroEl.innerHTML = `<span class="mono">Próximo partido en ${days}d ${pad(hours)}:${pad(mins)}:${pad(secs)}</span>`;
+    }
+    if (detailEl) {
+      detailEl.innerHTML = `
+        <div class="unit"><div class="num">${days}</div><div class="lbl mono">días</div></div>
+        <div class="unit"><div class="num">${pad(hours)}</div><div class="lbl mono">hs</div></div>
+        <div class="unit"><div class="num">${pad(mins)}</div><div class="lbl mono">min</div></div>
+        <div class="unit"><div class="num">${pad(secs)}</div><div class="lbl mono">seg</div></div>`;
+    }
+  }
+
+  tick();
+  countdownInterval = setInterval(tick, 1000);
+}
+
+function stopCountdown(){
+  if (countdownInterval) { clearInterval(countdownInterval); countdownInterval = null; }
+}
+
+// Mientras el partido está "en curso" (entre la hora de inicio y +3hs), la app
+// sondea el Worker cada 60 segundos para detectar cambios: si Promiedos ya
+// publicó el resultado final, o si el dato del próximo partido dejó de ser
+// un horario (HH:MM) — señal de que puede haber un marcador en vivo.
+// Esto es lo mejor que se puede armar sin una fuente de datos minuto a minuto:
+// no hay garantía de que Promiedos muestre el marcador mientras el partido
+// está en curso, así que puede quedarse en "Independiente está jugando ahora" sin más
+// detalle hasta que termine.
+function startLivePoll(proximo){
+  if (livePollInterval) return;
+
+  const poll = async () => {
+    try {
+      const resp = await fetch(`${WORKER_BASE}/fixture`, { cache: 'no-store' });
+      if (!resp.ok) return;
+      const data = await resp.json();
+
+      const finished = (data.resultados || []).find(
+        (r) => r.rival === proximo.rival && r.dia === proximo.dia
+      );
+      if (finished) {
+        liveStatusText = `Final: ${finished.dato}`;
+        renderLiveStatus();
+        stopLivePoll();
+        return;
+      }
+
+      const stillProximo = (data.proximos || []).find(
+        (p) => p.rival === proximo.rival && p.dia === proximo.dia
+      );
+      if (stillProximo && stillProximo.dato && !/^\d{1,2}:\d{2}$/.test(stillProximo.dato)) {
+        liveStatusText = stillProximo.dato;
+      }
+      renderLiveStatus();
+    } catch (err) {
+      console.warn('No se pudo actualizar el estado en vivo:', err);
+    }
+  };
+
+  poll();
+  livePollInterval = setInterval(poll, 60000);
+}
+
+function stopLivePoll(){
+  if (livePollInterval) { clearInterval(livePollInterval); livePollInterval = null; }
+}
+
+function renderLiveStatus(){
+  const heroEl = document.getElementById('countdown-hero');
+  const detailEl = document.getElementById('countdown-detail');
+  const text = liveStatusText ? `⚽ ${liveStatusText}` : '⚽ Independiente está jugando ahora';
+  if (heroEl) heroEl.innerHTML = `<span class="mono" style="color:var(--brass);">${text}</span>`;
+  if (detailEl) detailEl.innerHTML = `<span class="mono" style="color:var(--brass);">${text}</span>`;
+}
+
+// Trae fixture y resultados en vivo desde el Worker de Cloudflare (worker.js).
+// Si falla (sin conexión, Worker no desplegado, etc.) se queda con los datos fijos de respaldo.
+async function fetchLiveData(){
+  const fuenteEl = document.getElementById('fuente-datos');
+  try {
+    const resp = await fetch(`${WORKER_BASE}/fixture`, { cache: 'no-store' });
+    if (!resp.ok) throw new Error('respuesta no OK');
+    const data = await resp.json();
+
+    if (data.resultados && data.resultados.length) {
+      RESULTS = data.resultados.map((r, i) => ({
+        fecha: data.resultados.length - i,
+        date: r.dia,
+        rival: r.rival,
+        cond: r.condicion,
+        score: r.dato,
+        scorers: '',
+      }));
+      renderResults();
+    }
+    if (data.proximos && data.proximos.length) {
+      PROXIMOS = data.proximos;
+      renderProximos();
+    }
+    chequearPrediccion();
+    renderFechasRestantes();
+    if (fuenteEl) {
+      const actualizado = data.actualizado ? new Date(data.actualizado).toLocaleString('es-AR') : '';
+      fuenteEl.textContent = `Datos en vivo desde Promiedos · actualizado ${actualizado}`;
+    }
+  } catch (err) {
+    console.warn('No se pudo traer el fixture en vivo, se usan los datos fijos:', err);
+  }
+  updateBadge();
+}
+
+// ---------- ÍCONO CON BADGE (resultado nuevo sin ver) ----------
+// Requiere la Badging API (navigator.setAppBadge), disponible en Chrome/Edge
+// de escritorio y Android cuando la app está instalada. En navegadores sin
+// soporte esto simplemente no hace nada — no rompe la app.
+const SEEN_KEY = 'independiente_last_seen_result';
+
+function resultFingerprint(r){
+  return `${r.date}|${r.rival}|${r.score}`;
+}
+
+function updateBadge(){
+  if (!('setAppBadge' in navigator) || !RESULTS.length) return;
+  const seen = localStorage.getItem(SEEN_KEY);
+
+  // Primera vez que se abre la app: arrancamos a trackear desde acá,
+  // sin marcar los resultados fijos existentes como si fueran todos nuevos.
+  if (seen === null) {
+    localStorage.setItem(SEEN_KEY, resultFingerprint(RESULTS[0]));
+    return;
+  }
+
+  let newCount = 0;
+  for (const r of RESULTS) {
+    if (resultFingerprint(r) === seen) break;
+    newCount++;
+  }
+
+  if (newCount > 0) {
+    navigator.setAppBadge(newCount).catch(() => {});
+  } else {
+    navigator.clearAppBadge().catch(() => {});
+  }
+}
+
+function markResultsAsSeen(){
+  if (!RESULTS.length) return;
+  localStorage.setItem(SEEN_KEY, resultFingerprint(RESULTS[0]));
+  if ('clearAppBadge' in navigator) navigator.clearAppBadge().catch(() => {});
+}
+
+// ---------- TABS ----------
+// ---------- TABLA COMPLETA DE AMBAS ZONAS ----------
+let standingsLoaded = false;
+
+function renderStandings(data, zona){
+  const wrap = document.getElementById(`standings-table-wrap-${zona}`);
+  if (!data || !data.equipos || !data.equipos.length) {
+    wrap.innerHTML = `
+      <div class="eyebrow mono">Zona ${zona}</div>
+      <p class="mono" style="font-size:0.8rem; opacity:0.55;">No se pudo traer la tabla en este momento. Probá de nuevo más tarde.</p>`;
+    return;
+  }
+  const rows = data.equipos.map(e => {
+    const esIndependiente = /^independiente$/i.test(e.equipo.trim());
+    const escudo = esIndependiente
+      ? '<img src="https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_del_Club_Atl%C3%A9tico_Independiente.svg" alt="Escudo de Independiente" style="width:20px; height:20px; object-fit:contain;">'
+      : escudoHtml(e.equipo, 20);
+    return `
+    <tr class="${esIndependiente ? 'me' : ''}">
+      <td>${e.pos}</td>
+      <td class="team-cell">${escudo}<span>${e.equipo}</span></td>
+      <td>${e.jugados}</td>
+      <td>${e.ganados}</td>
+      <td>${e.empatados}</td>
+      <td>${e.perdidos}</td>
+      <td>${e.gf}</td>
+      <td>${e.gc}</td>
+      <td>${e.dif > 0 ? '+' + e.dif : e.dif}</td>
+      <td><strong>${e.pts}</strong></td>
+    </tr>`;
+  }).join('');
+
+  wrap.innerHTML = `
+    <div class="eyebrow mono">Zona ${data.grupo}</div>
+    <table class="standings-table">
+      <thead>
+        <tr>
+          <th>#</th><th>Equipo</th><th>PJ</th><th>G</th><th>E</th><th>P</th><th>GF</th><th>GC</th><th>DIF</th><th>PTS</th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <p class="mono" style="font-size:0.72rem; opacity:0.5; margin-top:0.8rem;">Fuente: Wikipedia · actualizado ${new Date(data.actualizado).toLocaleString('es-AR')} · puede estar algo atrasada respecto al último resultado</p>`;
+}
+
+// Guarda los equipos de cada zona una vez cargados, para el comparador rápido.
+const equiposPorZona = { A: [], B: [] };
+
+async function loadZona(zona){
+  const wrap = document.getElementById(`standings-table-wrap-${zona}`);
+  wrap.innerHTML = `<p class="mono" style="font-size:0.8rem; opacity:0.55;">Cargando tabla de la Zona ${zona}…</p>`;
+  try {
+    const resp = await fetch(`${WORKER_BASE}/standings?zona=${zona}`, { cache: 'no-store' });
+    if (!resp.ok) throw new Error('respuesta no OK');
+    const data = await resp.json();
+    renderStandings(data, zona);
+    equiposPorZona[zona] = data.equipos || [];
+    poblarComparador();
+  } catch (err) {
+    console.warn(`No se pudo traer la tabla de la Zona ${zona}:`, err);
+    wrap.innerHTML = `
+      <div class="eyebrow mono">Zona ${zona}</div>
+      <p class="mono" style="font-size:0.8rem; opacity:0.55;">No se pudo traer la tabla (¿desplegaste el Worker? ver README).</p>`;
+  }
+}
+
+async function loadStandings(){
+  await loadZona('A');
+  await loadZona('B');
+  standingsLoaded = true;
+}
+
+// ---------- COMPARADOR RÁPIDO ----------
+function poblarComparador(){
+  const todos = [...equiposPorZona.A, ...equiposPorZona.B];
+  if (!todos.length) return;
+  const opciones = todos
+    .map((e, i) => `<option value="${i}">${e.equipo}</option>`)
+    .join('');
+  ['comp-equipo-a', 'comp-equipo-b'].forEach(id => {
+    const select = document.getElementById(id);
+    const actual = select.value;
+    select.innerHTML = `<option value="">Elegí un equipo…</option>${opciones}`;
+    if (actual) select.value = actual;
+  });
+}
+
+function renderComparador(){
+  const wrap = document.getElementById('comparador-resultado');
+  const idxA = document.getElementById('comp-equipo-a').value;
+  const idxB = document.getElementById('comp-equipo-b').value;
+  if (idxA === '' || idxB === '') { wrap.innerHTML = ''; return; }
+
+  const todos = [...equiposPorZona.A, ...equiposPorZona.B];
+  const a = todos[Number(idxA)];
+  const b = todos[Number(idxB)];
+  if (!a || !b) { wrap.innerHTML = ''; return; }
+
+  const stats = [
+    { label: 'Posición', a: a.pos, b: b.pos, menorGana: true },
+    { label: 'PJ', a: a.jugados, b: b.jugados },
+    { label: 'Ganados', a: a.ganados, b: b.ganados },
+    { label: 'Empatados', a: a.empatados, b: b.empatados },
+    { label: 'Perdidos', a: a.perdidos, b: b.perdidos, menorGana: true },
+    { label: 'GF', a: a.gf, b: b.gf },
+    { label: 'GC', a: a.gc, b: b.gc, menorGana: true },
+    { label: 'Dif', a: a.dif, b: b.dif },
+    { label: 'Puntos', a: a.pts, b: b.pts },
+  ];
+
+  const filas = stats.map(s => {
+    const aGana = s.menorGana ? s.a < s.b : s.a > s.b;
+    const bGana = s.menorGana ? s.b < s.a : s.b > s.a;
+    return `
+      <tr>
+        <td class="stat-label">${s.label}</td>
+        <td class="${aGana ? 'better' : ''}">${s.a ?? '—'}</td>
+        <td class="${bGana ? 'better' : ''}">${s.b ?? '—'}</td>
+      </tr>`;
+  }).join('');
+
+  wrap.innerHTML = `
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th><div class="team-header">${escudoHtml(a.equipo, 32)}<span class="name">${a.equipo}</span></div></th>
+          <th><div class="team-header">${escudoHtml(b.equipo, 32)}<span class="name">${b.equipo}</span></div></th>
+        </tr>
+      </thead>
+      <tbody>${filas}</tbody>
+    </table>`;
+}
+
+document.getElementById('comp-equipo-a').addEventListener('change', renderComparador);
+document.getElementById('comp-equipo-b').addEventListener('change', renderComparador);
+
+document.getElementById('toggle-standings').addEventListener('click', (e) => {
+  const wrap = document.getElementById('standings-wrap');
+  const isHidden = wrap.style.display === 'none';
+  wrap.style.display = isHidden ? 'block' : 'none';
+  e.target.textContent = isHidden ? 'Ocultar tabla completa ▴' : 'Ver tabla completa de la zona ▾';
+  if (isHidden && !standingsLoaded) loadStandings();
+});
+
+document.querySelectorAll('.tabbtn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tabbtn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('main section').forEach(s => s.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    window.scrollTo({top: 0, behavior:'smooth'});
+    if (btn.dataset.tab === 'resultados') markResultsAsSeen();
+  });
+});
+
+// ---------- TEMA CLARO / OSCURO ----------
+const THEME_KEY = 'independiente_theme';
+
+function aplicarTema(tema){
+  if (tema === 'light') {
+    document.documentElement.setAttribute('data-theme', 'light');
+    document.getElementById('theme-toggle-btn').textContent = '☀️';
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+    document.getElementById('theme-toggle-btn').textContent = '🌙';
+  }
+  const metaTheme = document.querySelector('meta[name="theme-color"]');
+  if (metaTheme) metaTheme.setAttribute('content', tema === 'light' ? '#f5f0e3' : '#0d1f16');
+}
+
+function alternarTema(){
+  const actual = localStorage.getItem(THEME_KEY) === 'light' ? 'light' : 'dark';
+  const nuevo = actual === 'light' ? 'dark' : 'light';
+  localStorage.setItem(THEME_KEY, nuevo);
+  aplicarTema(nuevo);
+}
+
+aplicarTema(localStorage.getItem(THEME_KEY) === 'light' ? 'light' : 'dark');
+document.getElementById('theme-toggle-btn').addEventListener('click', alternarTema);
+
+// ---------- TAMAÑO DE LETRA ----------
+// Como casi todo el CSS de la app está en rem, cambiar el font-size del
+// <html> escala toda la interfaz de forma proporcional.
+const FONT_KEY = 'independiente_font_scale';
+const FONT_PASOS = [87.5, 100, 112.5, 125, 137.5]; // porcentajes
+
+function aplicarFontScale(pct){
+  document.documentElement.style.fontSize = pct + '%';
+  localStorage.setItem(FONT_KEY, String(pct));
+}
+
+function cambiarFontScale(delta){
+  const actual = Number(localStorage.getItem(FONT_KEY)) || 100;
+  const idx = FONT_PASOS.indexOf(actual);
+  const nuevoIdx = Math.min(FONT_PASOS.length - 1, Math.max(0, (idx === -1 ? 1 : idx) + delta));
+  aplicarFontScale(FONT_PASOS[nuevoIdx]);
+}
+
+aplicarFontScale(Number(localStorage.getItem(FONT_KEY)) || 100);
+document.getElementById('font-menos-btn').addEventListener('click', () => cambiarFontScale(-1));
+document.getElementById('font-mas-btn').addEventListener('click', () => cambiarFontScale(1));
+
+renderEfemeride();
+renderTrivia();
+renderTimeline();
+renderNicknames();
+renderHistoricSquads();
+renderDestacados();
+renderDTs();
+renderFilters();
+renderSquad();
+renderResults();
+renderProximos();
+fetchLiveData();
+
+// ---------- PWA: service worker + install prompt ----------
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(err => console.warn('SW registration failed', err));
+  });
+}
+
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  document.getElementById('installToast').classList.add('show');
+});
+document.getElementById('installBtn').addEventListener('click', async () => {
+  document.getElementById('installToast').classList.remove('show');
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+  }
+});
+window.addEventListener('appinstalled', () => {
+  document.getElementById('installToast').classList.remove('show');
+});
+</script>
+</body>
+</html>
