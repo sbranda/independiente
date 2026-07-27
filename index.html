@@ -676,6 +676,15 @@ function iniciales(nombre){
 // normalizado, y si no, probando si alguna clave conocida está contenida en
 // el nombre (por si Promiedos lo escribe distinto, ej. "Racing Club" en vez
 // de "Racing").
+// Versión aún más agresiva de normalización: se queda solo con letras y
+// números (sin espacios, sin tildes ya sacadas por normalizar, sin ningún
+// signo de puntuación). Sirve como segundo intento cuando el nombre viene
+// con algún caracter raro (ej. un apóstrofe con una codificación distinta
+// a las que ya contemplamos en normalizar()).
+function soloAlfanumerico(str){
+  return normalizar(str).replace(/[^a-z0-9]/g, '');
+}
+
 function buscarEscudo(nombre){
   const n = normalizar(nombre);
   if (CREST_MAP[n]) return CREST_MAP[n];
@@ -686,7 +695,15 @@ function buscarEscudo(nombre){
   const candidatas = Object.keys(CREST_MAP)
     .filter(k => n.includes(k) || k.includes(n))
     .sort((a, b) => b.length - a.length);
-  return candidatas.length ? CREST_MAP[candidatas[0]] : null;
+  if (candidatas.length) return CREST_MAP[candidatas[0]];
+
+  // Si no matcheó nada, reintentamos ignorando toda la puntuación (por si el
+  // nombre trae un apóstrofe con una codificación que no contemplamos).
+  const nAlfa = soloAlfanumerico(nombre);
+  const candidatas2 = Object.keys(CREST_MAP)
+    .filter(k => { const kAlfa = soloAlfanumerico(k); return kAlfa && (nAlfa.includes(kAlfa) || kAlfa.includes(nAlfa)); })
+    .sort((a, b) => b.length - a.length);
+  return candidatas2.length ? CREST_MAP[candidatas2[0]] : null;
 }
 
 // Devuelve el HTML del círculo con iniciales (fallback cuando no hay escudo
