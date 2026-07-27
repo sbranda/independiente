@@ -648,7 +648,7 @@ const CREST_MAP = {
   'gimnasia la plata': 'https://commons.wikimedia.org/wiki/Special:FilePath/Gimnasia_y_Esgrima_La_Plata_logo.png',
   'gimnasia mendoza': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_Club_Gimnasia_y_Esgrima_Mendoza.svg',
   'newells old boys': 'https://commons.wikimedia.org/wiki/Special:FilePath/ESCUDO-NOB.png',
-  "newell's": 'https://commons.wikimedia.org/wiki/Special:FilePath/ESCUDO-NOB.png',
+  'newells': 'https://commons.wikimedia.org/wiki/Special:FilePath/ESCUDO-NOB.png',
   'rosario central': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_del_Club_Atl%C3%A9tico_Rosario_Central.svg',
   'talleres': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_del_Club_Atl%C3%A9tico_Talleres.svg',
   'belgrano': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_Belgrano_de_C%C3%B3rdoba.svg',
@@ -679,8 +679,14 @@ function iniciales(nombre){
 function buscarEscudo(nombre){
   const n = normalizar(nombre);
   if (CREST_MAP[n]) return CREST_MAP[n];
-  const key = Object.keys(CREST_MAP).find(k => n.includes(k) || k.includes(n));
-  return key ? CREST_MAP[key] : null;
+  // Ordenamos las claves de más larga a más corta para que "independiente
+  // rivadavia" se pruebe antes que "independiente" — si no, "Independiente
+  // Riv." matchearía primero con la clave corta y mostraría el escudo
+  // equivocado.
+  const candidatas = Object.keys(CREST_MAP)
+    .filter(k => n.includes(k) || k.includes(n))
+    .sort((a, b) => b.length - a.length);
+  return candidatas.length ? CREST_MAP[candidatas[0]] : null;
 }
 
 // Devuelve el HTML del círculo con iniciales (fallback cuando no hay escudo
@@ -1000,6 +1006,7 @@ function normalizar(str){
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // saca acentos
     .toLowerCase()
     .replace(/[().,]/g, ' ') // saca paréntesis y puntuación (ej. "San Martín (Tucumán)")
+    .replace(/['’´`]/g, '') // saca apóstrofes de cualquier tipo (ej. "Newell's" / "Newell's")
     .replace(/\s+/g, ' ')
     .trim();
 }
