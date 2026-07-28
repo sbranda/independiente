@@ -34,7 +34,7 @@ const CROSS_ORIGIN_ASSETS = [
   'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_Independiente_Rivadavia.png',
   'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_Platense.svg',
   'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_Barracas_Central.svg',
-  'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_Defensa_y_Justicia.svg',
+  'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_del_Club_Social_y_Deportivo_Defensa_y_Justicia.svg',
   'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_del_Club_Atl%C3%A9tico_Tigre.svg',
   'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_Banfield.svg',
   'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_Lan%C3%BAs.svg',
@@ -46,6 +46,7 @@ const CROSS_ORIGIN_ASSETS = [
   'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_Deportivo_Riestra.png',
   'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_Aldosivi.png',
   'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_Argentinos_Juniors.svg',
+  'https://es.wikipedia.org/wiki/Special:FilePath/Aldosivi.png',
   'https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;600;700;900&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap',
 ];
 
