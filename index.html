@@ -352,6 +352,21 @@
     <p>Tocá cada estación para ver su historia.</p>
     <div class="timeline" id="timeline"></div>
 
+    <div class="eyebrow mono" style="margin-top:2.2rem;">El palmarés continental</div>
+    <h2 class="disp" style="font-size:1.4rem;">Rey de Copas — 16 títulos internacionales</h2>
+    <p>Contando solo los torneos organizados por CONMEBOL (sin la vieja Copa Aldao, un certamen bi-nacional organizado por AFA y AUF), así llegó Independiente a su título N° 16 con la Copa Sudamericana 2010:</p>
+    <div class="stat-row">
+      <div><div class="stat-num">7</div><div class="stat-label mono">Copas Libertadores<br>1964–1984</div></div>
+      <div><div class="stat-num">2</div><div class="stat-label mono">Copas Intercontinentales<br>1973, 1984</div></div>
+      <div><div class="stat-num">3</div><div class="stat-label mono">Copas Interamericanas<br>1972/73, 1974, 1975/76</div></div>
+    </div>
+    <div class="stat-row">
+      <div><div class="stat-num">2</div><div class="stat-label mono">Supercopas Sudamericanas<br>1994, 1995</div></div>
+      <div><div class="stat-num">1</div><div class="stat-label mono">Recopa Sudamericana<br>1995</div></div>
+      <div><div class="stat-num">1</div><div class="stat-label mono">Copa Sudamericana 2010<br>el título N° 16</div></div>
+    </div>
+    <p class="mono" style="font-size:0.72rem; opacity:0.5; margin-top:0.6rem;">7 + 2 + 3 + 2 + 1 = 15 títulos hasta 1995. La Copa Sudamericana 2010 fue el 16°, y puso fin a 15 años sin conquistas internacionales.</p>
+
     <div class="eyebrow mono" style="margin-top:2.2rem;">Fotos de archivo</div>
     <div class="gallery">
       <div>
@@ -581,6 +596,7 @@ const EFEMERIDES = [
   { dia: 3, mes: 11, anio: 1940, texto: "Independiente golea 7-0 a Racing: la mayor diferencia de goles en la historia del Clásico de Avellaneda." },
   { dia: 12, mes: 8, anio: 1964, texto: "Independiente le gana la vuelta a Nacional de Uruguay y se consagra campeón de su primera Copa Libertadores." },
   { dia: 28, mes: 10, anio: 2009, texto: "Reinauguración del Estadio Libertadores de América, construido en el mismo predio que el histórico estadio \"La Doble Visera\"." },
+  { dia: 8, mes: 12, anio: 2010, texto: "Independiente vence a Goiás (Brasil) por penales y gana la Copa Sudamericana 2010: su primer título en esa copa, el 16° título internacional oficial del club, y el fin de una sequía de 15 años sin conquistas internacionales." },
   { dia: 13, mes: 12, anio: 2017, texto: "Independiente empata 1-1 con Flamengo en el Maracaná y se consagra campeón de la Copa Sudamericana 2017." },
 ];
 
@@ -591,6 +607,7 @@ const TIMELINE = [
   { year: "1964–65", title: "Primeras Libertadores", text: "Independiente se convierte en el primer club argentino en ganar la Copa Libertadores, y revalida el título al año siguiente ante Peñarol." },
   { year: "1972–75", title: "El Tetracampeón", text: "Consigue cuatro Copas Libertadores consecutivas, un récord histórico de la competencia que ningún otro club logró igualar." },
   { year: "1984", title: "Séptima Libertadores", text: "Bajo la dirección de José Omar Pastoriza, y con Ricardo Bochini como figura, gana su séptima y última Copa Libertadores, además de la Copa Intercontinental." },
+  { year: "2010", title: "Primera Copa Sudamericana", text: "Bajo la dirección de Antonio Mohamed, remonta un 0-2 de Goiás (Brasil) en la ida y gana la vuelta 3-1 en Avellaneda; se consagra por penales (5-3). Fue su 16° título internacional oficial y puso fin a 15 años sin conquistas internacionales." },
   { year: "2013–14", title: "Único descenso", text: "Independiente desciende por primera y única vez en su historia a la Primera Nacional, regresando a Primera al año siguiente." },
   { year: "2017", title: "Copa Sudamericana", text: "Bajo la dirección de Ariel Holan y con Nicolás Tagliafico como capitán, gana su segunda Copa Sudamericana ante Flamengo, en el Maracaná." },
   { year: "Hoy", title: "Primera División", text: "El equipo compite en la máxima categoría del fútbol argentino, bajo la dirección técnica de Gustavo Quinteros." },
@@ -793,6 +810,15 @@ const HISTORIC_SQUADS = [
       {label:"Mediocampistas", players:"Ricardo Bochini, César Merlini, Carlos Carrizo, Gerardo Reinoso, Claudio Marangoni, Ricardo Giusti, Jorge Clara, René Houseman"},
       {label:"Delanteros", players:"José Percudani, Sergio Bufarini, Alejandro Barberón, Gustavo Crnko, Jorge Burruchaga, Enrique Sánchez"},
       {label:"DT", players:"José Omar Pastoriza"},
+    ]},
+  { year:"2010", title:"Primera Copa Sudamericana",
+    context:"Independiente remonta un 0-2 en contra ante Goiás (Brasil) en la ida y gana la vuelta 3-1 en el Libertadores de América; se consagra campeón por 5-3 en la definición por penales. Fue el 16° título internacional oficial del club y el fin de una sequía de 15 años sin conquistas internacionales. DT: Antonio Mohamed.",
+    lines:[
+      {label:"Arquero", players:"Hilario Navarro"},
+      {label:"Defensores", players:"Eduardo Tuzzio (capitán), Carlos Matheu, Julián Velázquez, Lucas Mareque"},
+      {label:"Mediocampistas", players:"Roberto Battión, Nicolás Cabrera, Hernán Fredes, Nicolás Martínez, Patricio Rodríguez"},
+      {label:"Delantero", players:"Facundo Parra"},
+      {label:"DT", players:"Antonio Mohamed"},
     ]},
   { year:"2017", title:"Campeón de la Copa Sudamericana",
     context:"Tras siete años sin títulos internacionales, Independiente vence a Flamengo 3-2 en el global (2-1 de local, 1-1 en el Maracaná) y gana su segunda Copa Sudamericana. DT: Ariel Holan.",
